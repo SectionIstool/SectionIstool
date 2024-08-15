@@ -1,6 +1,6 @@
-# LZY Toolbox
+# Toolbox
 
-LZY Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便的下载软件。
+Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便的下载软件。
 
 ## 功能
 ### 主页面
@@ -11,7 +11,7 @@ LZY Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便
 ### 软件下载/列表
 - [X] 自带软件列表
 - [X] 快速下载
-- [ ] 自动安装部分软件(ClassIsland, Lzy_Toolbox)
+- [ ] 自动安装部分软件(ClassIsland等)
 ### 自定义下载/列表
 - [ ] 自定义添加
 ### 设置
@@ -33,7 +33,7 @@ LZY Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便
 <details>
 <summary>最低设备需求</summary>
 
-Lzy Toolbox 理论上可以在以下的系统环境中运行：
+Toolbox 理论上可以在以下的系统环境中运行：
 
 - Windows 7 及以上版本系统，x64架构
 
