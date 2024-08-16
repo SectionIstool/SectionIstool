@@ -47,7 +47,7 @@ Toolbox 理论上可以在以下的系统环境中运行：
 
 对于普通用户，可以在以下渠道下载到本软件，请根据自身网络环境选择合适的渠道。
 
-| 下载渠道/通道 | **🚀正式版** <br/>[![GitHub Release](https://img.shields.io/github/v/release/lzy98276/LZY-Toolbox?style=flat-square&logo=GitHub&color=%233fb950)](https://github.com/lzy98276/LZY-Toolbox/releases/latest)
+| 下载渠道/通道 | **🚀正式版** <br/>[![GitHub Release](https://img.shields.io/github/v/release/lzy98276/Toolbox?style=flat-square&logo=GitHub&color=%233fb950)](https://github.com/lzy98276/Toolbox/releases/latest)
 
 ### 3. 安装软件
 
