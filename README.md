@@ -2,7 +2,8 @@
 
 Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便的下载软件。
 
-帮助手册(简洁版):[![蓝奏云下载源](https://ts1.cn.mm.bing.net/th?id=ODLS.41ae9b13-83e4-411d-9d68-44ff16492160&w=32&h=32&qlt=90&pcl=fffffa&r=0&o=6&pid=1.2)](https://lzy-12.lanzouw.com/ik5mA2820d9a)
+帮助手册(简洁版): [![蓝奏云下载源](https://ts1.cn.mm.bing.net/th?id=ODLS.41ae9b13-83e4-411d-9d68-44ff16492160&w=32&h=32&qlt=90&pcl=fffffa&r=0&o=6&pid=1.2)](https://lzy-12.lanzouw.com/ik5mA2820d9a)
+第三方下载源(蓝奏云-密码:1234): [![蓝奏云下载源](https://ts1.cn.mm.bing.net/th?id=ODLS.41ae9b13-83e4-411d-9d68-44ff16492160&w=32&h=32&qlt=90&pcl=fffffa&r=0&o=6&pid=1.2)](https://lzy-12.lanzouw.com/b00hq1uq2j)
 
 ## 功能
 ### 主页面
