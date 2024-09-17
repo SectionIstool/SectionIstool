@@ -1,10 +1,37 @@
+<div align="center">
+
+<image src="resources/icon.png" height="48"/>
+
 # Toolbox
 
-Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便的下载软件。
+![WelcomePage](ScreenShots/WelcomePage.png)
+![ExamPage](ScreenShots/ExamPage.png)
 
-帮助手册(简洁版): [![蓝奏云下载源](https://ts1.cn.mm.bing.net/th?id=ODLS.41ae9b13-83e4-411d-9d68-44ff16492160&w=32&h=32&qlt=90&pcl=fffffa&r=0&o=6&pid=1.2)](https://lzy-12.lanzouw.com/ik5mA2820d9a)
+[![stars](https://img.shields.io/github/stars/lzy98276/Toolbox?label=Stars)](https://github.com/lzy98276/Toolbox)
+[![forks](https://img.shields.io/github/forks/lzy98276/Toolbox?label=Forks)](https://github.com/lzy98276/Toolbox)
+[![Watchers](https://img.shields.io/github/watchers/lzy98276/Toolbox?style=social)](https://github.com/lzy98276/Toolbox/watchers)
+[![Downloads](https://img.shields.io/github/downloads/lzy98276/Toolbox/total?style=social&label=Downloads&logo=github)](https://github.com/lzy98276/Toolbox/releases/latest)
+[![GitHub Issues](https://img.shields.io/github/issues-search/lzy98276/Toolbox?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/lzy98276/Toolbox/issues)
+[![Beta](https://img.shields.io/github/v/release/lzy98276/Toolbox?include_prereleases&style=social-square&label=测试版)](https://github.com/lzy98276/Toolbox/releases/)
+[![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/Toolbox)](https://github.com/lzy98276/Toolbox/commits/master)
+[![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C901670561-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/zDiEipHsaI)
 
-第三方下载源(蓝奏云-密码:1234): [![蓝奏云下载源](https://ts1.cn.mm.bing.net/th?id=ODLS.41ae9b13-83e4-411d-9d68-44ff16492160&w=32&h=32&qlt=90&pcl=fffffa&r=0&o=6&pid=1.2)](https://lzy-12.lanzouw.com/b00hq1uq2j)
+一款便于下载多数常用软件的工具箱。
+
+下载 [Realeases](https://github.com/lzy98276/Toolbox/releases) | [Actions](https://github.com/lzy98276/Toolbox/actions)
+
+</div>
+
+> [!important]
+> **此项目仍在早期开发中，使用过程中可能会遇到一些未知的问题！**
+
+## 功能
+- [X] 起始页展示`打开配置`、`直接进入看板`按钮
+- [X] 上方展示`考试标题`
+- [X] 左侧展示`当前时间`、`考试科目`、`开始/结束时间`、`考试状态`
+- [X] 右侧展示考试科目列表，包括`科目`、`开始`、`结束`、`状态`
+- [X] 考试结束前15分钟 <font color=yellow>黄字</font> 提醒
+- [ ] 后续将支持集控
 
 ## 功能
 ### 主页面
@@ -22,42 +49,20 @@ Toolbox是一款适用于x64架构电脑的软件下载工具，可以方便的�
 ### 设置
 - [X] 自定义下载位置
 - [ ] 自定义不同程序安装位置
-- [X] 自动更新
+- [X] 更新功能
 ### 其它功能
 - [X] 体积小巧
 - [X] 画面优化
 - [X] 明亮主题
 
-## 开始使用
+## 开发环境
 
-### 1. 使用此软件需求
+## Stars 历史
 
-首先，请确保您的设备满足以下推荐需求：
-- Windows 10 及以上版本的系统，x64架构
+[![Star 历史](https://starchart.cc/lzy98276/Toolbox.svg?variant=adaptive)](https://starchart.cc/lzy98276/Toolbox)
 
-<details>
-<summary>最低设备需求</summary>
+<div align="center">
 
-Toolbox 理论上可以在以下的系统环境中运行：
+如果这个项目对您有帮助，请点亮 Star ⭐
 
-- Windows 7 及以上版本系统，x64架构
-
-**注意：在这些系统上运行 Lzy Toolbox 可能会出现下载不稳定的情况。**
-
-> ⚠️**不建议在 Windows 10 以下的系统运行本应用。**
-
-</details>
-
-### 2. 下载软件本身
-
-对于普通用户，可以在以下渠道下载到本软件，请根据自身网络环境选择合适的渠道。
-
-| 下载渠道/通道 | **🚀正式版** <br/>[![GitHub Release](https://img.shields.io/github/v/release/lzy98276/Toolbox?style=flat-square&logo=GitHub&color=%233fb950)](https://github.com/lzy98276/Toolbox/releases/latest)
-
-### 3. 安装软件
-
-下载完成后，将软件安装到一个您喜欢的地方，安装完软件即可开始使用。
-
-### 4. 开始使用
-
-安装即用。
+</div>
