@@ -4,8 +4,7 @@
 
 # SectionIstool
 
-![WelcomePage](ScreenShots/WelcomePage.png)
-![ExamPage](ScreenShots/ExamPage.png)
+![软件界面](ScreenSots/ClassIsland_Page.png)
 
 [![stars](https://img.shields.io/github/stars/lzy98276/SectionIstool?label=Stars)](https://github.com/lzy98276/SectionIstool)
 [![forks](https://img.shields.io/github/forks/lzy98276/SectionIstool?label=Forks)](https://github.com/lzy98276/SectionIstool)
@@ -16,9 +15,9 @@
 [![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/SectionIstool)](https://github.com/lzy98276/SectionIstool/commits/master)
 [![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 
-一款便于下载多数常用软件的工具箱。
+在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
 
-下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases)
+| 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
 
 </div>
 
@@ -42,8 +41,6 @@
 - [X] 界面美观
 - [X] 亮色主题
 - [X] 使用方便
-
-## 开发环境
 
 ## Stars 历史
 
