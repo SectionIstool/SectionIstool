@@ -14,7 +14,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues-search/lzy98276/SectionIstool?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/lzy98276/SectionIstool/issues)
 [![Beta](https://img.shields.io/github/v/release/lzy98276/SectionIstool?include_prereleases&style=social-square&label=测试版)](https://github.com/lzy98276/SectionIstool/releases/)
 [![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/SectionIstool)](https://github.com/lzy98276/SectionIstool/commits/master)
-[![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/zDiEipHsaI)
+[![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 
 一款便于下载多数常用软件的工具箱。
 
