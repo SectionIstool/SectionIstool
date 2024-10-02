@@ -1,6 +1,6 @@
 <div align="center">
 
-<image src="resources/icon.png" height="48"/>
+<image src="resources/SectionIstool_icon.png" height="48"/>
 
 # SectionIstool
 
@@ -18,7 +18,7 @@
 
 一款便于下载多数常用软件的工具箱。
 
-下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) | [Actions](https://github.com/lzy98276/SectionIstool/actions)
+下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases)
 
 </div>
 
