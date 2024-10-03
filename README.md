@@ -14,7 +14,7 @@
 [![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/SectionIstool)](https://github.com/lzy98276/SectionIstool/commits/master)
 [![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 
-在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
+该软件会使您在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
 
 | 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
 
