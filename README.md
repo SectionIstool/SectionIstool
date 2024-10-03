@@ -10,13 +10,13 @@
 [![Watchers](https://img.shields.io/github/watchers/lzy98276/SectionIstool?style=social)](https://github.com/lzy98276/SectionIstool/watchers)
 [![Downloads](https://img.shields.io/github/downloads/lzy98276/SectionIstool/total?style=social&label=Downloads&logo=github)](https://github.com/lzy98276/SectionIstool/releases/latest)
 [![GitHub Issues](https://img.shields.io/github/issues-search/lzy98276/SectionIstool?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/lzy98276/SectionIstool/issues)
-[![Beta](https://img.shields.io/github/v/release/lzy98276/SectionIstool?include_prereleases&style=social-square&label=测试版\)](https://github.com/lzy98276/SectionIstool/releases/)
+[![Beta](https://img.shields.io/github/v/release/lzy98276/SectionIstool?include_prereleases&style=social-square&label=测试版)](https://github.com/lzy98276/SectionIstool/releases/)
 [![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/SectionIstool)](https://github.com/lzy98276/SectionIstool/commits/master)
 [![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 
 在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
 
-下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases)
+| 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
 
 </div>
 
@@ -52,4 +52,4 @@
 </div>
 
 ## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool?ref=badge_shield&issueType=license)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool?ref=badge_shield&issueType=license)7656
