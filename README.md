@@ -16,7 +16,7 @@
 
 在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
 
-| 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
+下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases)
 
 </div>
 
