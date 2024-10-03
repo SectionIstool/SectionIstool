@@ -4,9 +4,6 @@
 
 # SectionIstool
 
-![关于界面](ScreenSots/about_Page.png)
-![下载界面](ScreenSots/ClassIsland_Page.png)
-
 [![stars](https://img.shields.io/github/stars/lzy98276/SectionIstool?label=Stars)](https://github.com/lzy98276/SectionIstool)
 [![forks](https://img.shields.io/github/forks/lzy98276/SectionIstool?label=Forks)](https://github.com/lzy98276/SectionIstool)
 [![Watchers](https://img.shields.io/github/watchers/lzy98276/SectionIstool?style=social)](https://github.com/lzy98276/SectionIstool/watchers)
@@ -42,6 +39,11 @@
 - [X] 界面美观
 - [X] 亮色主题
 - [X] 使用方便
+
+## 软件截图
+
+![关于界面](ScreenSots/about_Page.png)
+![下载界面](ScreenSots/ClassIsland_Page.png)
 
 ## Stars 历史
 
