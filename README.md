@@ -4,9 +4,6 @@
 
 # SectionIstool
 
-![关于界面](ScreenSots/about_Page.png)
-![下载界面](ScreenSots/ClassIsland_Page.png)
-
 [![Watchers](https://img.shields.io/github/watchers/lzy98276/SectionIstool?style=social)](https://github.com/lzy98276/SectionIstool/watchers)
 [![Downloads](https://img.shields.io/github/downloads/lzy98276/SectionIstool/total?style=social&label=Downloads&logo=github)](https://github.com/lzy98276/SectionIstool/releases/latest)
 [![GitHub Issues](https://img.shields.io/github/issues-search/lzy98276/SectionIstool?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/lzy98276/SectionIstool/issues)
@@ -50,6 +47,11 @@
 如果这个项目对您有帮助，请点亮 Star ⭐
 
 </div>
+
+## 软件截图
+
+![关于界面](ScreenSots/about_Page.png)
+![下载界面](ScreenSots/ClassIsland_Page.png)
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool?ref=badge_large&issueType=license)
