@@ -52,4 +52,4 @@
 </div>
 
 ## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool?ref=badge_shield&issueType=license)7656
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flzy98276%2FSectionIstool?ref=badge_large&issueType=license)
