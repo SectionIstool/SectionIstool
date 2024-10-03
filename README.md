@@ -4,7 +4,8 @@
 
 # SectionIstool
 
-![软件界面](ScreenSots/ClassIsland_Page.png)
+![关于界面](ScreenSots/about_Page.png)
+![下载界面](ScreenSots/ClassIsland_Page.png)
 
 [![stars](https://img.shields.io/github/stars/lzy98276/SectionIstool?label=Stars)](https://github.com/lzy98276/SectionIstool)
 [![forks](https://img.shields.io/github/forks/lzy98276/SectionIstool?label=Forks)](https://github.com/lzy98276/SectionIstool)
