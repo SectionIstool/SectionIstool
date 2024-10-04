@@ -68,7 +68,7 @@ def showHomeContent(self):
         text-align: center;
     """)
 
-    home_synopsis_four = QLabel('--本软件 SectionIstool 暂不开源、免费，旨在帮助你快速下载各种资源')
+    home_synopsis_four = QLabel('本软件 SectionIstool 开源、免费，旨在帮助你快速下载各种资源')
     home_synopsis_four.setStyleSheet(f"""
         font-family: "{self.custom_font.family()}";
         font-size: {self.fontPointSize + 4}px;  
@@ -81,7 +81,7 @@ def showHomeContent(self):
         text-align: center;
     """)
 
-    home_synopsis_three = QLabel('--本项目由 GitHub - lzy98276 开发、维护，欢迎提交 issue')
+    home_synopsis_three = QLabel('本项目由 GitHub - lzy98276 开发、维护，欢迎提交 issue')
     home_synopsis_three.setStyleSheet(f"""
         font-family: "{self.custom_font.family()}";
         font-size: {self.fontPointSize + 4}px;  
@@ -94,7 +94,7 @@ def showHomeContent(self):
         text-align: center;
     """)
 
-    home_synopsis_two = QLabel('本项目 GitHub 开源地址：<a href="https://github.com/lzy98276/SectionIstool" style="color: #0078d7; text-decoration: none;">https://github.com/lzy98276/SectionIstool</a>')
+    home_synopsis_two = QLabel('本项目 GitHub 开源地址：<a href="https://github.com/SectionIstool/SectionIstool" style="color: #0078d7; text-decoration: none;">https://github.com/SectionIstool/SectionIstool</a>')
     home_synopsis_two.setOpenExternalLinks(True)  # 使链接可点击
     
     # 设置交互标志

@@ -45,52 +45,52 @@ def closeEvent(self, event):
 
     # 创建自定义样式的消息框
     msg_box = QMessageBox()
-    
+
     # 设置消息框样式
     msg_box.setStyleSheet(f"""
     QMessageBox {{
-        background-color: #ffffff;  /* 背景色 */
-        border: 2px solid #2196F3;  /* 边框颜色 */
-        border-radius: 10px;  /* 圆角 */
+        background-color: #ffffff;  
+        border: 2px solid #2196F3;  
+        border-radius: 10px;  
     }}
     QMessageBox QLabel {{
-        font-family: {self.custom_font.family()};  /* 标签字体 */
-        font-size: {self.fontPointSize + 2}px;  /* 标签字体大小 */
-        color: #333;  /* 标签字体颜色 */
+        font-family: {self.custom_font.family()};  
+        font-size: {self.fontPointSize + 2}px;  
+        color: #333;  
     }}
     QMessageBox QPushButton {{
-        font-family: {self.custom_font.family()};  /* 按钮字体 */
-        background-color: #2196F3;  /* 蓝色 */
+        font-family: {self.custom_font.family()};  
+        background-color: #2196F3;  
         color: #FFFFFF;
         border: none;
         padding: 10px;
         border-radius: 5px;
         text-align: center;
         font-size: {self.fontPointSize + 2}px;
-        margin: 5px;  /* 按钮边距 */
+        margin: 5px;  
     }}
     QMessageBox QPushButton:hover {{
-        background-color: #1976D2;  /* 鼠标悬停时的深蓝色 */
+        background-color: #1976D2;  
     }}
     """)
 
     msg_box.setWindowTitle('确认')
     msg_box.setText('确认退出程序？')
-    
+
     # 设置标准按钮
     msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg_box.setDefaultButton(QMessageBox.No)
 
-    # 修改按钮文字
-    msg_box.setButtonText(QMessageBox.Yes, "退出")  # 修改“是”按钮文字
-    msg_box.setButtonText(QMessageBox.No, "取消")   # 修改“否”按钮文字
-    
-    # 设置按钮样式
-    msg_box.button(QMessageBox.Yes).setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
-    msg_box.button(QMessageBox.No).setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
+    # 修改按钮样式
+    yes_button = msg_box.button(QMessageBox.Yes)
+    no_button = msg_box.button(QMessageBox.No)
+
+    yes_button.setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
+    no_button.setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
 
     # 显示消息框并获取用户响应
     reply = msg_box.exec_()
+
 
     if reply == QMessageBox.Yes:
         event.accept()  # 关闭程序

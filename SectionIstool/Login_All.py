@@ -61,9 +61,9 @@ def load_ClassIsland_info(self):
 def load_Sticky_Attention_links(self):
     try:
         repo = 'Sticky-attention/Sticky-attention'
-        software_name = 'Release'
+        software_name = 'Sticky-attention'
         software_true_name = 'Sticky-attention'
-        author = "HelloWRC"
+        author = "HelloWRC/jizilin6732"
         file_extension = 'zip' 
         source = 'github'
 
@@ -87,9 +87,9 @@ def load_Sticky_Attention_links(self):
 def load_Sticky_Atention_info(self):
     try:
         repo = 'Sticky-attention/Sticky-attention'
-        software_name = 'Release'
+        software_name = 'Sticky-attention'
         software_true_name = 'Sticky-attention'
-        author = "HelloWRC"
+        author = "HelloWRC/jizilin6732"
         file_extension = 'zip' 
         source = 'github'
 

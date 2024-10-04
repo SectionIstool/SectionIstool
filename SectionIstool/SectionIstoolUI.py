@@ -221,8 +221,5 @@ def initUI(self):
     # 正确调用 showHomeContent 并使用其返回值
     self.current_content = self.showHomeContent()
 
-    # 创建菜单
-    self.createMenus()
-
     # 隐藏状态栏
     self.statusBar().hide()

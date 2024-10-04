@@ -9,7 +9,6 @@ from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QFontDatabase
 
 
-
 # 软件下载
 def showSoftwareClassIslandDownloadContent(self):
     # 清空当前内容
@@ -268,7 +267,7 @@ def showSoftwareClassIslandDownloadContent(self):
         self.result_table.insertRow(row_num)  # 插入一行
 
         # 创建字体对象，设置为黑体
-        font = QFont(self.custom_font.family())  # 设置字体为黑体
+        font = QFont(self.custom_font.family())  
         font.setPixelSize(self.fontPointSize)  # 设置字体大小
 
         # 创建ID列的单元格

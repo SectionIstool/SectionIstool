@@ -9,7 +9,6 @@ current_version = version_info()
 
 
 
-
 # 主代码
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -66,6 +65,7 @@ class MainWindow(QMainWindow):
         list_widget.addItem('Sticky-attention')
         list_widget.addItem('ZongziTEK Blackboard Sticker')
         list_widget.addItem('设置')
+        list_widget.addItem('更新')
         list_widget.addItem('关于')
         list_widget.itemClicked.connect(self.onNavigationItemClicked)
         return list_widget
@@ -82,6 +82,8 @@ class MainWindow(QMainWindow):
             self.showSoftwareZongziTEKBlackboardStickerDownloadContent()
         elif item.text() == '设置':
             self.showSettingsContent()
+        elif item.text() == '更新':
+            self.check_update()
         elif item.text() == '关于':
             self.showHomeContent()
 
@@ -105,10 +107,10 @@ class MainWindow(QMainWindow):
 
     # 简介  
     from Synopsis import showHomeContent
-    
 
-    # 创建菜单
-    from Menus import createMenus
+
+    # 更新
+    from Update import check_update
 
 
     # 检测程序是否关闭

@@ -2,7 +2,7 @@ import requests
 import os
 import time
 import math
-from PyQt5.QtWidgets import QMessageBox, QProgressBar, QPushButton, QVBoxLayout, QDialog, QLabel, QHBoxLayout
+from PyQt5.QtWidgets import QMessageBox, QProgressBar, QPushButton, QVBoxLayout, QDialog, QLabel, QHBoxLayout, QApplication
 from PyQt5.QtCore import pyqtSignal, QThread
 import webbrowser  # 用于打开文件或浏览器
 from PyQt5.QtWidgets import QDesktopWidget
@@ -20,6 +20,9 @@ class DownloadWorker(QThread):
         self.custom_filename = custom_filename
         self.identifier = identifier
         self.download_active = True
+
+        from custom_message import show_custom_message
+        self.show_custom_message = show_custom_message
 
     def run(self):
         download_file = os.path.join(self.download_path, self.custom_filename + '.SectionIstool.download')  # 设置临时文件名
@@ -148,6 +151,9 @@ class DownloadManager(QDialog):
         self.setWindowTitle("SectionIstool 下载进度")
         self.download_active = False
 
+        from custom_message import show_custom_message
+        self.show_custom_message = show_custom_message
+
         # 加载自定义字体
         font_path = os.path.join(os.path.dirname(__file__), 'font\\HarmonyOS_Sans_Medium.ttf')  # 相对路径
         font_id = QFontDatabase.addApplicationFont(font_path)
@@ -170,7 +176,47 @@ class DownloadManager(QDialog):
         self.fontPointSize = int(min(screenWidth, screenHeight) * font_scale_factor)
         self.custom_font.setPointSize(self.fontPointSize)
 
-        self.init_screen(0.21, None, None)
+        # 设置窗口大小
+        self.height_window = 0.21
+        self.width_window = None
+        self.setfixed = None 
+
+        # 根据屏幕尺寸设置窗口大小
+        screen = QApplication.desktop().screenGeometry()  # 获取屏幕大小
+        screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+
+        # 用来存储计算后的窗口高度和宽度
+        window_height = None
+        window_width = None
+
+        # 检测高的值
+        if isinstance(self.height_window, (int, float)) and self.height_window >= 0:
+            window_height = int(screen_geometry.height() * self.height_window)
+
+        # 检测宽的值
+        if isinstance(self.width_window, (int, float)) and self.width_window >= 0:
+            window_width = int(screen_geometry.width() * self.width_window)
+
+        # 如果高度和宽度都有值，直接设置高度和宽度
+        if window_height is not None and window_width is not None:
+            self.resize(window_width, window_height)  # 设置宽度和高度
+        # 如果只有高度有值，设置高度
+        elif window_height is not None:
+            self.setFixedHeight(window_height)
+        # 如果只有宽度有值，设置宽度
+        elif window_width is not None:
+            self.resize(window_width, self.height())  # 仅设置宽度，保持高度不变
+        else:
+            self.setfixed = None  # 高度和宽度都没有值，则固定窗口大小
+
+        # 居中显示窗口
+        self.move(int((screen.width() - self.width()) / 2), int((screen.height() - self.height()) / 2))  # 窗口居中显示
+
+        # 根据设置决定是否固定大小
+        if self.setfixed is True:
+            self.setFixedSize(self.width(), self.height())  # 设置固定大小
+        else:
+            self.adjustSize()  # 自适应宽度
 
         self.initUI()
 
@@ -200,11 +246,20 @@ class DownloadManager(QDialog):
         # 显示进度信息标签
         self.info_label = QLabel(self)
         self.info_label.setStyleSheet(f"font-family: '{self.custom_font.family()}'; font-size: {self.fontPointSize + 2}px;")
+        # 根据屏幕尺寸设置窗口大小
+        screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+        window_height_info_label = int(screen_geometry.height() * 0.0463)
+
+        self.info_label.setFixedHeight(window_height_info_label)
         self.layout().addWidget(self.info_label)
 
         # 停止下载按钮
         self.stop_button = QPushButton("停止下载", self)
-        self.stop_button.adjustSize()
+        # 根据屏幕尺寸设置窗口大小
+        screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+        window_height_stop_button = int(screen_geometry.height() * 0.037)
+
+        self.stop_button.setFixedHeight(window_height_stop_button)
         self.stop_button.clicked.connect(self.stop_download)
         self.stop_button.setStyleSheet(f"font-family: '{self.custom_font.family()}'; color: black; background-color: #f44336; border-radius: 5px; font-size: {self.fontPointSize + 2}px;")
         self.layout().addWidget(self.stop_button)
@@ -214,14 +269,22 @@ class DownloadManager(QDialog):
 
         # 打开文件按钮
         self.open_file_button = QPushButton("打开文件", self)
-        self.open_file_button.adjustSize()
+        # 根据屏幕尺寸设置窗口大小
+        screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+        window_height_open_file_button = int(screen_geometry.height() * 0.037)
+
+        self.open_file_button.setFixedHeight(window_height_open_file_button)
         self.open_file_button.clicked.connect(self.open_file)
         self.open_file_button.setStyleSheet(f"font-family: '{self.custom_font.family()}'; color: black; background-color: #2196F3; border-radius: 5px; font-size: {self.fontPointSize + 2}px;")
         button_layout.addWidget(self.open_file_button)
 
         # 打开文件夹按钮
         self.open_folder_button = QPushButton("打开文件夹", self)
-        self.open_folder_button.adjustSize()
+        # 根据屏幕尺寸设置窗口大小
+        screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+        window_height_open_folder_button = int(screen_geometry.height() * 0.037)
+
+        self.open_folder_button.setFixedHeight(window_height_open_folder_button)
         self.open_folder_button.clicked.connect(self.open_folder)
         self.open_folder_button.setStyleSheet(f"font-family: '{self.custom_font.family()}'; color: black; background-color: #2196F3; border-radius: 5px; font-size: {self.fontPointSize + 2}px;")
         button_layout.addWidget(self.open_folder_button)
