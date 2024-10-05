@@ -11,7 +11,7 @@
 [![Github Last Commit](https://img.shields.io/github/last-commit/lzy98276/SectionIstool)](https://github.com/lzy98276/SectionIstool/commits/master)
 [![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 
-该软件会使您在学校班级电脑中方便、快捷的下载适合班级使用的各类软件
+该软件会使您在学校班级电脑中方便、快捷的下载适合班级下载各类软件
 
 | 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
 
@@ -30,8 +30,8 @@
 - [ ] 自动安装已适配的软件
 ### 设置
 - [X] 自定义下载位置
+- [X] 自动更新
 - [ ] 自定义程序的安装位置
-- [ ] 自动更新
 ### 其它功能
 - [X] 体积小巧
 - [X] 界面美观
@@ -48,7 +48,7 @@
 
 </div>
 
-## 软件截图
+## 软件截图 - 1.2.0.0 开发板
 
 ![关于界面](ScreenSots/about_Page.png)
 ![下载界面](ScreenSots/ClassIsland_Page.png)
