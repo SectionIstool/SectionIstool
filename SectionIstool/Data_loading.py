@@ -16,7 +16,6 @@ def convert_size(size_bytes):
     s = round(size_bytes / p, 2)
     return f"{s} {size_name[i]}"
 
-
 async def fetch_current_time(token=None):
     """从网络获取当前时间并转换为UTC+8时区"""
     api_url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai"  
@@ -29,56 +28,62 @@ async def fetch_current_time(token=None):
             
             # 获取原始 UTC 时间字符串
             utc_datetime_str = data['utc_datetime']
-            
-            # 将字符串转化为 UTC datetime 对象
-            utc_datetime = datetime.fromisoformat(utc_datetime_str)  # 直接使用包含时区信息的字符串
-            
-            # 将 UTC 时间转换为 UTC+8 时区
+            utc_datetime = datetime.fromisoformat(utc_datetime_str)
             utc_8_timezone = pytz.timezone('Asia/Shanghai')
             utc_8_datetime = utc_datetime.astimezone(utc_8_timezone)
-
-            # 格式化为所需的字符串格式
             formatted_time = utc_8_datetime.strftime('%Y-%m-%d %H:%M:%S')
             
-            return formatted_time  # 返回格式化后的时间字符串
+            return formatted_time
 
-
-
-async def get_specific_asset_size(owner, repo, release_tag, asset_name, token=None):
-    # 获取Release信息的URL
+async def get_specific_asset_size(owner, repo, release_tag, token=None):
     release_url = f'https://api.github.com/repos/{owner}/{repo}/releases/tags/{release_tag}'
-    
     headers = {"Authorization": f"token {token}"} if token else {}
 
     async with aiohttp.ClientSession() as session:
         async with session.get(release_url, headers=headers) as response:
             release_data = await response.json()
             
-            # 检查资产（assets）是否存在
             if 'assets' in release_data:
                 for asset in release_data['assets']:
-                    if asset['name'] == asset_name:
-                        return asset['size']  # 如果找到，返回大小并退出函数
+                    return asset['size']
             
-            return None  # 如果没有找到，返回None
+            return None
 
-async def get_all_versions_async(repo, software_name, software_true_name, file_extension, source, author, token=None, min_version=None, max_version=None, limit=None):
-    api_url = f'https://api.github.com/repos/{repo}/releases'
+async def get_specific_asset_url(owner, repo, release_tag, token=None):
+    release_url = f'https://api.github.com/repos/{owner}/{repo}/releases/tags/{release_tag}'
     headers = {"Authorization": f"token {token}"} if token else {}
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(release_url, headers=headers) as response:
+            release_data = await response.json()
+            
+            if 'assets' in release_data:
+                for asset in release_data['assets']:
+                    return asset['browser_download_url']
+            
+            return None
+
+async def get_all_versions_async(repo, software_name, software_true_name, file_extension, author, source_first=None, source_second=None, token=None, min_version=None, max_version=None, limit=None):
+    api_url = f'https://api.github.com/repos/{repo}/releases'
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
 
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(api_url, headers=headers) as response:
-                response.raise_for_status()  # 检查请求是否成功
-                
+                response.raise_for_status()
                 releases = await response.json()
                 filtered_download_links = []
-                existing_versions = set()  # 存储已存在的版本号
+                existing_versions = set()
 
                 for release in releases:
                     latest_tag = release.get('tag_name')
 
-                    # 版本过滤逻辑
+                    file_size_bytes = await get_specific_asset_size(repo.split('/')[0], repo.split('/')[1], latest_tag, token)
+                    file_size = convert_size(file_size_bytes) if file_size_bytes is not None else "未知大小"
+                    download_url_temp = await get_specific_asset_url(repo.split('/')[0], repo.split('/')[1], latest_tag, token) 
+
+                    # 确保 update_body 在使用之前被定义
+                    update_body = ''
                     if (min_version and latest_tag < min_version) or (max_version and latest_tag > max_version):
                         continue
                     
@@ -86,50 +91,69 @@ async def get_all_versions_async(repo, software_name, software_true_name, file_e
                         continue
                     
                     existing_versions.add(latest_tag)
-                    publish_date = release.get('published_at', '1970-01-01T00:00:00Z')  # 发布时间
+                    publish_date = release.get('published_at', '1970-01-01T00:00:00Z')
 
-                    # 构造下载链接
-                    if software_name:
-                        # 有指定软件名，构造具体链接
-                        download_url = f'https://mirror.ghproxy.com/https://github.com/{repo}/releases/download/{latest_tag}/{software_name}.{file_extension}'
+                    # 确定软件名称
+                    if software_true_name:
+                        software_display_name = software_true_name
+                    elif software_name:
+                        software_display_name = software_name
                     else:
-                        # 如果没有指定软件名，默认构造使用release里面的资产
-                        download_url = f'https://mirror.ghproxy.com/https://github.com/{repo}/releases/download/{latest_tag}/'
+                        print("警告: 软件名称和真实名称都为空")
+                        continue
 
-                    file_size_bytes = await get_specific_asset_size(repo.split('/')[0], repo.split('/')[1], latest_tag, f'{software_name}.{file_extension}' if software_name else '', token)
-                    file_size = convert_size(file_size_bytes) if file_size_bytes is not None else "未知大小"
+                    if source_first == '1':
+                        download_url_first = download_url_temp if download_url_temp else None
 
-                    # 根据当前数量生成id (倒序)
-                    download_link = {
-                        "id": str(limit - len(filtered_download_links)) if limit else str(len(filtered_download_links)),  # 倒序生成id
-                        "name": software_true_name,
-                        "author": author, 
-                        "version": latest_tag,
-                        "size": file_size,
-                        "format": file_extension,
-                        "source": source,
-                        "note": "",
-                        "first_release": publish_date.split('T')[0],
-                        "url": download_url,
-                    }
+                        link_first = {
+                            "id": str(limit - len(filtered_download_links)) if limit else str(len(filtered_download_links) + 1),  # 倒序生成id
+                            "name": software_display_name,
+                            "author": author,
+                            "version": latest_tag,
+                            "size": file_size,
+                            "format": file_extension,
+                            "source": "github",
+                            "note": update_body,
+                            "first_release": publish_date.split('T')[0],
+                            "url": download_url_first,
+                        }
+                        filtered_download_links.append(link_first)
 
-                    filtered_download_links.append(download_link)
+                    if source_second == '2':
+                        download_url_second = ('https://ghp.ci/' + download_url_temp) if download_url_temp else None
+                        
+                        link_second = {
+                            "id": str(limit - len(filtered_download_links)) if limit else str(len(filtered_download_links) + 1),  # 倒序生成id
+                            "name": software_display_name,
+                            "author": author,
+                            "version": latest_tag,
+                            "size": file_size,
+                            "format": file_extension,
+                            "source": "github(镜像源)",
+                            "note": update_body,
+                            "first_release": publish_date.split('T')[0],
+                            "url": download_url_second,
+}
+                        # 确保不重复添加
+                        if link_second not in filtered_download_links:
+                            filtered_download_links.append(link_second)
 
                     if limit and len(filtered_download_links) >= limit:
                         break
-                
+
+                # 更新获取的 UTC 时间
                 try:
                     utc_time = await fetch_current_time()
                 except Exception:
-                    utc_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')  # 使用本地UTC时间
-                
+                    utc_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
                 if filtered_download_links:
+                    os.makedirs('Config/All_online', exist_ok=True)
                     data_to_write = {
                         "download_links": filtered_download_links,
                         "fetch_time": utc_time
                     }
-                    os.makedirs('Config/All_online', exist_ok=True)
-                    with open(f'Config/All_online/{software_true_name}.json', 'w', encoding='utf-8') as json_file:
+                    with open(f'Config/All_online/{software_display_name}.json', 'w', encoding='utf-8') as json_file:
                         json.dump(data_to_write, json_file, indent=4, ensure_ascii=False)
 
                 return filtered_download_links
@@ -140,97 +164,118 @@ async def get_all_versions_async(repo, software_name, software_true_name, file_e
             raise ValueError("JSON数据解析失败")
 
 
-# 更新 get_software_async 函数，添加与上面类似的逻辑
-async def get_software_async(repo, software_name, software_true_name, file_extension, source, author, token=None, limit=None):
-    releases_url = f'https://api.github.com/repos/{repo}/releases'
-    repo_url = f'https://api.github.com/repos/{repo}'  # 获取仓库信息的URL
 
-    headers = {"Authorization": f"token {token}"} if token else {}
+async def get_software_async(repo, software_name, software_true_name, file_extension, author, source_first=None, source_second=None, token=None, limit=None):
+    releases_url = f'https://api.github.com/repos/{repo}/releases'
+    repo_url = f'https://api.github.com/repos/{repo}'
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
 
     async with aiohttp.ClientSession() as session:
         try:
-            # 发送GET请求以获取仓库信息
             async with session.get(repo_url, headers=headers) as response:
                 response.raise_for_status()
                 repo_info = await response.json()
 
-                owner_avatar_url = repo_info.get('owner', {}).get('avatar_url', '') + '&s=64'  # 添加大小查询参数
+                owner_avatar_url = repo_info.get('owner', {}).get('avatar_url', '') + '&s=64'
                 repository_description = repo_info.get('description', '')
-                stars_count = repo_info.get('stargazers_count', 0)  # 获取Stars数量
+                stars_count = repo_info.get('stargazers_count', 0)
 
-            # 发送GET请求以获取发布版本
             async with session.get(releases_url, headers=headers) as response:
-                response.raise_for_status()  # 检查请求是否成功，抛出异常
-                
-                # 解析返回的JSON数据，获取版本
+                response.raise_for_status()
                 releases = await response.json()
-                
+
                 if not releases:
-                    return []  # 如果没有发布版本，返回空列表
-                
+                    return []
+
                 filtered_software_info = []
                 
                 for release in releases:
                     latest_tag = release.get('tag_name')
 
-                    if software_name:
-                        # 有指定软件名，构造具体链接
-                        download_url = f'https://mirror.ghproxy.com/https://github.com/{repo}/releases/download/{latest_tag}/{software_name}.{file_extension}'
-                    else:
-                        # 如果没有指定软件名，下载链接使用release文件
-                        download_url = f'https://mirror.ghproxy.com/https://github.com/{repo}/releases/download/{latest_tag}/'
-
-                    # 其他信息 与之前保持一致
-                    publish_date = release.get('published_at', '1970-01-01T00:00:00Z')  # 发布时间
-                    file_size_bytes = await get_specific_asset_size(repo.split('/')[0], repo.split('/')[1], latest_tag, f'{software_name}.{file_extension}' if software_name else '', token)
+                    file_size_bytes = await get_specific_asset_size(repo.split('/')[0], repo.split('/')[1], latest_tag, token)
                     file_size = convert_size(file_size_bytes) if file_size_bytes is not None else "未知大小"
+                    download_url_temp = await get_specific_asset_url(repo.split('/')[0], repo.split('/')[1], latest_tag, token) 
 
-                    software_info = {
-                        "name": software_true_name,
-                        "author": author, 
-                        "version": latest_tag,
-                        "size": file_size,
-                        "format": file_extension,
-                        "source": source,
-                        "note": "",
-                        "first_release": publish_date.split('T')[0],
-                        "url": download_url,
-                        "avatar_url": owner_avatar_url,
-                        "description": repository_description,
-                        "stars_count": stars_count
-                    }
+                    # 确定软件名称
+                    if software_true_name:
+                        software_display_name = software_true_name
+                    elif software_name:
+                        software_display_name = software_name
+                    else:
+                        print("警告: 软件名称和真实名称都为空")
+                        continue  # 跳过这次迭代
 
-                    filtered_software_info.append(software_info)
+                    publish_date = release.get('published_at', '1970-01-01T00:00:00Z')
+                    update_body = release.get('body', '')  # 获取更新内容
+
+                    # 处理下载链接
+                    if source_first == '1':
+                        download_url_first = download_url_temp if download_url_temp else None
+                        software_info_first = {
+                            "name": software_display_name,
+                            "author": author, 
+                            "version": latest_tag,
+                            "size": file_size,
+                            "format": file_extension,
+                            "source": "github",
+                            "note": update_body,
+                            "first_release": publish_date.split('T')[0],
+                            "url": download_url_first,
+                            "avatar_url": owner_avatar_url,
+                            "description": repository_description,
+                            "stars_count": stars_count
+                        }
+                        filtered_software_info.append(software_info_first)
+
+                    if source_second == '2':
+                        download_url_second = ('https://ghp.ci/' + download_url_temp) if download_url_temp else None
+                        software_info_second = {
+                            "name": software_display_name,
+                            "author": author, 
+                            "version": latest_tag,
+                            "size": file_size,
+                            "format": file_extension,
+                            "source": "github(镜像源)",
+                            "note": update_body,
+                            "first_release": publish_date.split('T')[0],
+                            "url": download_url_second,
+                            "avatar_url": owner_avatar_url,
+                            "description": repository_description,
+                            "stars_count": stars_count
+                        }
+
+                        # 确保不重复添加
+                        if software_info_second not in filtered_software_info:
+                            filtered_software_info.append(software_info_second)
 
                     if limit and len(filtered_software_info) >= limit:
                         break
 
-                # 获取当前时间（与之前一样）
+                # 更新获取的 UTC 时间
                 try:
                     utc_time = await fetch_current_time()
                 except Exception:
-                    utc_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')  # 使用本地UTC时间
-                
+                    utc_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
                 # 写入JSON文件
-                os.makedirs('Config/All_online', exist_ok=True)
-                with open(f'Config/All_online/{software_true_name}_info.json', 'w', encoding='utf-8') as json_file:
+                if filtered_software_info:
+                    os.makedirs('Config/All_online', exist_ok=True)
                     data_to_write = {
                         "software_info": filtered_software_info,
-                        "fetch_time": utc_time  # 写入从网上获取的时间
+                        "fetch_time": utc_time
                     }
-                    json.dump(data_to_write, json_file, indent=4, ensure_ascii=False)
+                    with open(f'Config/All_online/{software_display_name}_info.json', 'w', encoding='utf-8') as json_file:
+                        json.dump(data_to_write, json_file, indent=4, ensure_ascii=False)
 
-                return filtered_software_info  # 返回包含该链接的列表
+                return filtered_software_info
 
         except aiohttp.ClientError as e:
-            raise aiohttp.ClientError(f"发生错误:{e}")  # 处理请求失败
+            raise aiohttp.ClientError(f"发生错误:{e}")
         except ValueError:
-            raise ValueError("JSON数据解析失败")  # 处理JSON解析错误
+            raise ValueError("JSON数据解析失败")
 
 
 
-
-# 读取JSON文件
 def read_json_file(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as json_file:
@@ -238,69 +283,63 @@ def read_json_file(file_path):
     except (FileNotFoundError, json.JSONDecodeError) as e:
         raise RuntimeError(f"读取JSON文件失败: {e}")
 
-
-# 检查并获取数据
-async def check_and_get_data(file_path, info_type, repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit):
+async def check_and_get_data(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit, info_type, file_path):
     data = read_json_file(file_path)
     written_time_str = data.get("fetch_time")
 
-    # 检查写入时间
     if written_time_str:
-        # 将时间字符串转换为 datetime 对象
         written_time = datetime.strptime(written_time_str, '%Y-%m-%d %H:%M:%S')
-        # 获取当前时间（与之前一样）
         try:
             current_time = await fetch_current_time()
         except Exception:
-            current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')  # 使用本地UTC时间
+            current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         
-        # 确保 current_time 为 datetime 对象
         if isinstance(current_time, str):
             current_time = datetime.strptime(current_time, '%Y-%m-%d %H:%M:%S')
 
     if not written_time or written_time is None or current_time - written_time > timedelta(hours=2):
         if info_type == "software_info":
-            software_async = await get_software_async(repo, software_name, software_true_name, file_extension, source, author, token, limit)  # 超过一小时或没有更新时间，返回新的软件信息
+            software_async = await get_software_async(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, limit)
             return software_async
 
         elif info_type == "download_links":
-            all_versions_async = await get_all_versions_async(repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit)  # 超过一小时或没有更新时间，返回新的下载链接
+            all_versions_async = await get_all_versions_async(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit)
             return all_versions_async
 
         else:
-            return []  # 处理未知的info_type
+            return []
 
+    return data.get(info_type)
 
-    return data.get(info_type)  # 返回已有数据或空列表
-
-
-# 用户登录检测获取数据
-async def filtered_get_all_versions(repo, software_name, software_true_name, file_extension, source, author, token=None, min_version=None, max_version=None, limit=None, info_type=None, file_path=None):
+async def filtered_get_all_versions(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token=None, min_version=None, max_version=None, limit=None, info_type=None, file_path=None):
     if os.path.exists(file_path):
         try:
-            return await check_and_get_data(file_path, info_type, repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit)
-
+            return await check_and_get_data(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit, info_type, file_path)
         except Exception as e:
             raise RuntimeError(f"获取数据失败: {e}")
 
-    # 如果文件不存在，直接获取
     if info_type == "software_info":
-        return await get_software_async(repo, software_name, software_true_name, file_extension, source, author, token, limit) # 超过一小时，返回新的数据
+        return await get_software_async(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, limit)
 
     elif info_type == "download_links":
-        return await get_all_versions_async(repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit) # 超过一小时，返回新的数据
+        return await get_all_versions_async(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit) 
 
     else:
-        return []  # 未知的info_type
+        return []
 
-
-# 主函数
-def get_all_versions(repo, software_name, software_true_name, file_extension, source, author, token=None, min_version=None, max_version=None, limit=None):
+def get_all_versions(repo, software_name, software_true_name, file_extension, author, source_first=None, source_second=None, token=None, min_version=None, max_version=None, limit=None):
     file_path = f"Config/All_online/{software_true_name}.json"
-    return asyncio.run(filtered_get_all_versions(repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit, "download_links", file_path))
+    return asyncio.run(filtered_get_all_versions(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit, "download_links", file_path))
 
-def get_software_info(repo, software_name, software_true_name, file_extension, source, author, token=None, limit=None):
+def get_software_info(repo, software_name, software_true_name, file_extension, author, source_first=None, source_second=None, token=None, limit=None):
     file_path = f"Config/All_online/{software_true_name}_info.json"
     min_version = None
     max_version = None
-    return asyncio.run(filtered_get_all_versions(repo, software_name, software_true_name, file_extension, source, author, token, min_version, max_version, limit, "software_info", file_path))
+    return asyncio.run(filtered_get_all_versions(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit, "software_info", file_path))
+
+def get_update_info(repo, software_name, software_true_name, file_extension, author, source_first=None, source_second=None, token=None, limit=None):
+    file_path = f"Config/All_online/{software_true_name}_info.json"
+    min_version = None
+    max_version = None
+    return asyncio.run(filtered_get_all_versions(repo, software_name, software_true_name, file_extension, author, source_first, source_second, token, min_version, max_version, limit, "software_info", file_path))
+

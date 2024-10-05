@@ -18,7 +18,7 @@ def showSoftwareClassIslandDownloadContent(self):
     # 加载自定义字体
     font_path = os.path.join(os.path.dirname(__file__), 'font\\HarmonyOS_Sans_Medium.ttf')  # 相对路径
     font_id = QFontDatabase.addApplicationFont(font_path)
-    
+
     # 检查字体是否加载成功
     if font_id != -1:
         self.custom_font = QFont(QFontDatabase.applicationFontFamilies(font_id)[0])
@@ -52,6 +52,7 @@ def showSoftwareClassIslandDownloadContent(self):
         "   padding: 5px;"                # 设置容器内部的填充
         "}"
     )
+    
     # 创建一个垂直布局
     v_layout = QVBoxLayout(container)
 
@@ -88,8 +89,6 @@ def showSoftwareClassIslandDownloadContent(self):
         "}"
     )
 
-
-
     # 创建一个用于显示当前软件信息的 QWidget
     info_widget = QWidget()
     info_widget.setStyleSheet("background-color: #f0f8ff; padding: 10px; border-radius: 10px;")  # 设置背景颜色和内边距
@@ -125,10 +124,6 @@ def showSoftwareClassIslandDownloadContent(self):
                     current_software_stars_count, current_software_description]:
             label.setStyleSheet(f"color: #2196F3; font-size: {self.fontPointSize + 2}px; font-family: '{self.custom_font.family()}';")
 
-
-
-
-
     # 创建水平布局并添加标签
     current_software_layout_one = QHBoxLayout()
     current_software_layout_one.setSpacing(15)  # 设置水平布局内的间距
@@ -136,6 +131,29 @@ def showSoftwareClassIslandDownloadContent(self):
     current_software_layout_one.addWidget(current_software_author, alignment=Qt.AlignLeft)
     current_software_layout_one.addWidget(current_software_version, alignment=Qt.AlignLeft)
     current_software_layout_one.addWidget(current_software_stars_count, alignment=Qt.AlignLeft)
+
+    # 创建查看更新日志的按钮
+    view_log_button = QPushButton("显示最新版更新日志")  # 修改按钮文字内容
+    view_log_button.setStyleSheet(f"""
+        QPushButton {{
+            background-color: #2196F3;  /* 按钮背景 */
+            color: white;                /* 白色文字 */
+            border: none;                /* 去掉边框 */
+            border-radius: 10px;        /* 圆角 */
+            padding: 12px;              /* 内边距 */
+            font-family: '{self.custom_font.family()}'; /* 字体 */
+            font-size: {self.fontPointSize + 2}px;     /* 字体大小 */
+            font-weight: bold;          /* 加粗 */
+        }}
+        QPushButton:hover {{
+            background-color: #1976D2;  /* 鼠标悬停时的背景色 */
+        }}
+        QPushButton:pressed {{
+            background-color: #2196F3;  /* 按钮被按下时的背景色 */
+        }}
+    """)
+    view_log_button.clicked.connect(lambda: showUpdateLog(self))
+
 
     # 创建一个QWidget来容纳水平布局
     h_widget = QWidget()
@@ -146,14 +164,13 @@ def showSoftwareClassIslandDownloadContent(self):
     current_software_layout.setSpacing(10)  # 设置垂直布局内的间距
     current_software_layout.addWidget(h_widget, alignment=Qt.AlignCenter)  # 添加h_widget而不是current_software_layout_one
     current_software_layout.addWidget(current_software_description, alignment=Qt.AlignCenter)
+    current_software_layout.addWidget(view_log_button, alignment=Qt.AlignCenter)
 
     # 将垂直布局添加到info_widget
     current_layout = QVBoxLayout(info_widget)
     current_layout.addLayout(current_software_layout)
 
 
-
-        
     # 创建结果显示区域的标签
     result_label = QLabel()
     result_label.setText("ClassIsland 的下载页面")
@@ -172,7 +189,6 @@ def showSoftwareClassIslandDownloadContent(self):
         font-size: {self.fontPointSize + 2}px; /* 字体大小 */
         font-weight: bold; /* 字体加粗 */
     """)
-
 
     # 创建搜索按钮
     search_button = QPushButton("搜索")
@@ -227,7 +243,7 @@ def showSoftwareClassIslandDownloadContent(self):
     self.result_table.setSelectionMode(QAbstractItemView.SingleSelection)  # 单选
     self.result_table.setAlternatingRowColors(True)  # 交替行背景色
     self.result_table.setSortingEnabled(True)  # 允许排序
-    self.result_table.sortByColumn(8, Qt.DescendingOrder)  # 默认按发布时间倒序排列
+    self.result_table.sortByColumn(0, Qt.DescendingOrder)  # 默认按发布时间倒序排列
 
     # 将表格的样式设置
     self.result_table.setStyleSheet(
@@ -259,7 +275,6 @@ def showSoftwareClassIslandDownloadContent(self):
         "   color: black;"                 # 选中时字体颜色
         "}"
     )
-
 
     # 填充表格数据
     for software_info in self.ClassIsland_links:  # 遍历所有软件
@@ -324,8 +339,6 @@ def showSoftwareClassIslandDownloadContent(self):
         release_time_item.setTextAlignment(Qt.AlignCenter)  # 设置发布时间列文本居中
         self.result_table.setItem(row_num, 8, release_time_item)
 
-
-
     # 搜索逻辑
     def searchSoftwares(keyword):
         # 根据关键字搜索软件并填充表格
@@ -348,7 +361,6 @@ def showSoftwareClassIslandDownloadContent(self):
             result_label.setText("未找到相关软件，请检查输入")
         else:
             result_label.setText(f"找到 {self.result_table.rowCount()} 个相关软件")
-
 
     # 获取下载链接按钮的点击事件处理
     def onGetUrlButtonClicked(program_id):
@@ -387,7 +399,6 @@ def showSoftwareClassIslandDownloadContent(self):
                 break
         else:
             result_label.setText('未找到相关软件，请检查输入')
-
 
     def create_custom_filename(software):
         # 根据软件信息创建自定义文件名
@@ -443,7 +454,6 @@ def showSoftwareClassIslandDownloadContent(self):
         """)
         
         return msg_box.exec_() == QMessageBox.Yes
-
 
     def getDownloadPath(software_name, software_source):
         # 获取应用程序的根目录
@@ -522,11 +532,9 @@ def showSoftwareClassIslandDownloadContent(self):
         else:
             return default_download_path # 返回默认下载路径
 
-
     def setDownloadPath(self, selected_path):
             # 这里可以根据需要实现设置默认下载路径的逻辑
             # 例如，使用QSettings类保存设置
-            # self.default_download_path = selected_path
             if not os.path.exists(os.path.join('config', 'download_file_path')):
                 os.makedirs(os.path.join('config', 'download_file_path'))
             with open(os.path.join('config', 'download_file_path', 'default_path.ini'), 'w') as f:
@@ -534,10 +542,8 @@ def showSoftwareClassIslandDownloadContent(self):
                 f.close()
                 return selected_path
 
-
     def geetDownloadPath():
         # 这里可以根据需要实现获取默认下载路径的逻辑
-        # 系统设置中读取系统默认下载目录
         if os.path.exists(os.path.join('config', 'download_file_path', 'default_path.ini')):
             with open(os.path.join('config', 'download_file_path', 'default_path.ini'), 'r') as f:
                 download_file_path = f.read()
@@ -546,10 +552,65 @@ def showSoftwareClassIslandDownloadContent(self):
         else:
             return None
 
-
     def open_web(url):
         # 用户选择打开浏览器
         webbrowser.open(url)
+
+
+    # 创建显示更新日志的函数
+    def showUpdateLog(self):
+        # 获取更新日志内容
+        if isinstance(ClassIsland_info, list) and len(ClassIsland_info) > 0:
+            update_log = self.ClassIsland_info[0]['note']
+        else:
+            update_log = "无更新日志内容"
+
+        # 创建消息框显示更新日志
+        log_box = QMessageBox()
+        log_box.setWindowTitle(f"{self.ClassIsland_info[0]['name']} - {self.ClassIsland_info[0]['version']} - 更新日志")
+        log_box.setText(update_log)
+        
+        # 设置消息框文本样式
+        log_box.setStyleSheet(f"""
+            QMessageBox {{
+                font-family: '{self.custom_font.family()}'; /* 字体 */
+                font-size: {self.fontPointSize}px;        /* 字体大小 */
+                color: #333;                                /* 文本颜色 */
+            }}
+        """)
+
+        # 设置消息框按钮样式
+        log_box.setStyleSheet(log_box.styleSheet() + f"""
+            QMessageBox QPushButton {{
+                background-color: #2196F3;  /* 按钮背景色 */
+                color: white;               /* 按钮文字颜色 */
+                border: none;               /* 去掉边框 */
+                border-radius: 5px;        /* 圆角 */
+                padding: 10px;              /* 内边距 */
+                font-family: '{self.custom_font.family()}';
+                font-size: {self.fontPointSize}px; /* 字体大小 */
+            }}
+            QMessageBox QPushButton:hover {{
+                background-color: #1E88E5;  /* 鼠标悬停按钮背景色 */
+            }}
+        """)
+        
+        log_box.setStandardButtons(QMessageBox.Ok)
+        log_box.button(QMessageBox.Ok).setText("确定")
+        log_box.button(QMessageBox.Ok).setStyleSheet(f"""
+            font-family: '{self.custom_font.family()}';        /* 设置字体 */
+            font-size: {self.fontPointSize}px;            /* 字体大小 */
+            background-color: #2196F3;  /* 蓝色背景 */
+            color: white;               /* 白色文字 */
+            border: none;               /* 去掉边框 */
+            border-radius: 5px;         /* 边框圆角 */
+            padding: 10px;         /* 内边距 */
+            font-size: {self.fontPointSize}px;            /* 字体大小 */
+            font-weight: bold;          /* 粗体 */
+        """)
+        
+        # 显示消息框
+        log_box.exec_()
 
 
     # 创建结果显示区域的标签
@@ -572,6 +633,5 @@ def showSoftwareClassIslandDownloadContent(self):
     self.layout.setStretchFactor(container, 1)
     self.setWindowTitle('SectionIstool - ClassIsland 下载')
     
-
     # 返回container，以便可以在initUI中使用
     return container

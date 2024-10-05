@@ -81,15 +81,21 @@ def closeEvent(self, event):
     msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg_box.setDefaultButton(QMessageBox.No)
 
-    # 修改按钮样式
+    # 修改按钮文本
     yes_button = msg_box.button(QMessageBox.Yes)
     no_button = msg_box.button(QMessageBox.No)
 
+    # 修改按钮内容
+    yes_button.setText('确定')  # 修改“是”按钮的文本
+    no_button.setText('取消')   # 修改“否”按钮的文本
+
+    # 修改按钮样式
     yes_button.setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
-    no_button.setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #2196F3; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #1976D2;}}")
+    no_button.setStyleSheet(f"QPushButton{{font-family: {self.custom_font.family()}; background-color: #f44336; color: #FFFFFF; border: none; padding: 10px; border-radius: 5px; text-align: center; font-size: {self.fontPointSize + 2}px; margin: 5px; }} QPushButton:hover{{background-color: #E53935;}}")
 
     # 显示消息框并获取用户响应
     reply = msg_box.exec_()
+
 
 
     if reply == QMessageBox.Yes:

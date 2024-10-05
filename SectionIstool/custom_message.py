@@ -1,7 +1,17 @@
 from PyQt5.QtWidgets import QMessageBox
+# from PyQt5.QtWidgets import QApplication
 
 def show_custom_message(self, title, message, icon):
-    self.adjustSize() 
+    # # 根据屏幕尺寸设置窗口大小
+    # screen = QApplication.desktop().screenGeometry()  # 获取屏幕大小
+    # screen_geometry = QApplication.desktop().screenGeometry()  # 获取屏幕几何信息
+    # window_width = int(screen_geometry.width() * 0.08)
+    # window_height = int(screen_geometry.height() * 0.05)
+
+    # self.resize(window_width, window_height)  # 设置新的窗口大小
+    # self.move(int((screen.width() - self.width()) / 2), int((screen.height() - self.height()) / 2))  # 窗口居中显示
+
+    # # self.setFixedSize(self.width(), self.height())  # 设置固定大小
 
     """自定义消息框，用于显示提示信息"""
     msg_box = QMessageBox(self)

@@ -115,7 +115,7 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
             label.setStyleSheet(f"color: #2196F3; font-size: {self.fontPointSize + 2}px; font-family: '{self.custom_font.family()}';")
     else:
         # 如果ZongziTEK_Blackboard_Sticker_info无效或为空，提供默认信息
-        current_software_name = QLabel("Software_ZongziTEKBlackboardSticker_Download")
+        current_software_name = QLabel("ZongziTEK_Blackboard_Sticker")
         current_software_author = QLabel("作者信息加载失败")
         current_software_version = QLabel("版本信息加载失败")
         current_software_stars_count = QLabel("star人数加载失败")
@@ -127,9 +127,6 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
             label.setStyleSheet(f"color: #2196F3; font-size: {self.fontPointSize + 2}px; font-family: '{self.custom_font.family()}';")
 
 
-
-
-
     # 创建水平布局并添加标签
     current_software_layout_one = QHBoxLayout()
     current_software_layout_one.setSpacing(15)  # 设置水平布局内的间距
@@ -137,6 +134,29 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
     current_software_layout_one.addWidget(current_software_author, alignment=Qt.AlignLeft)
     current_software_layout_one.addWidget(current_software_version, alignment=Qt.AlignLeft)
     current_software_layout_one.addWidget(current_software_stars_count, alignment=Qt.AlignLeft)
+
+    # 创建查看更新日志的按钮
+    view_log_button = QPushButton("显示最新版更新日志")  # 修改按钮文字内容
+    view_log_button.setStyleSheet(f"""
+        QPushButton {{
+            background-color: #2196F3;  /* 绿色背景 */
+            color: white;                /* 白色文字 */
+            border: none;                /* 去掉边框 */
+            border-radius: 10px;        /* 圆角 */
+            padding: 12px;              /* 内边距 */
+            font-family: '{self.custom_font.family()}'; /* 字体 */
+            font-size: {self.fontPointSize + 2}px;     /* 字体大小 */
+            font-weight: bold;          /* 加粗 */
+        }}
+        QPushButton:hover {{
+            background-color: #1976D2;  /* 鼠标悬停时的背景色 */
+        }}
+        QPushButton:pressed {{
+            background-color: #2196F3;  /* 按钮被按下时的背景色 */
+        }}
+    """)
+    view_log_button.clicked.connect(lambda: showUpdateLog(self))
+
 
     # 创建一个QWidget来容纳水平布局
     h_widget = QWidget()
@@ -147,6 +167,7 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
     current_software_layout.setSpacing(10)  # 设置垂直布局内的间距
     current_software_layout.addWidget(h_widget, alignment=Qt.AlignCenter)  # 添加h_widget而不是current_software_layout_one
     current_software_layout.addWidget(current_software_description, alignment=Qt.AlignCenter)
+    current_software_layout.addWidget(view_log_button, alignment=Qt.AlignCenter)
 
     # 将垂直布局添加到info_widget
     current_layout = QVBoxLayout(info_widget)
@@ -228,7 +249,7 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
     self.result_table.setSelectionMode(QAbstractItemView.SingleSelection)  # 单选
     self.result_table.setAlternatingRowColors(True)  # 交替行背景色
     self.result_table.setSortingEnabled(True)  # 允许排序
-    self.result_table.sortByColumn(8, Qt.DescendingOrder)  # 默认按发布时间倒序排列
+    self.result_table.sortByColumn(0, Qt.DescendingOrder)  # 默认按发布时间倒序排列
 
     # 将表格的样式设置
     self.result_table.setStyleSheet(
@@ -552,6 +573,62 @@ def showSoftwareZongziTEKBlackboardStickerDownloadContent(self):
     def open_web(url):
         # 用户选择打开浏览器
         webbrowser.open(url)
+
+
+    # 创建显示更新日志的函数
+    def showUpdateLog(self):
+        # 获取更新日志内容
+        if 'note' in self.ZongziTEK_Blackboard_Sticker_info[0]:  # 假设我们关注第一个软件信息
+            update_log = self.ZongziTEK_Blackboard_Sticker_info[0]['note']
+        else:
+            update_log = "无更新日志内容"
+
+        # 创建消息框显示更新日志
+        log_box = QMessageBox()
+        log_box.setWindowTitle(f"{self.ZongziTEK_Blackboard_Sticker_info[0]['name']} - {self.ZongziTEK_Blackboard_Sticker_info[0]['version']} - 更新日志")
+        log_box.setText(update_log)
+        
+        # 设置消息框文本样式
+        log_box.setStyleSheet(f"""
+            QMessageBox {{
+                font-family: '{self.custom_font.family()}'; /* 字体 */
+                font-size: {self.fontPointSize}px;        /* 字体大小 */
+                color: #333;                                /* 文本颜色 */
+            }}
+        """)
+
+        # 设置消息框按钮样式
+        log_box.setStyleSheet(log_box.styleSheet() + f"""
+            QMessageBox QPushButton {{
+                background-color: #2196F3;  /* 按钮背景色 */
+                color: white;               /* 按钮文字颜色 */
+                border: none;               /* 去掉边框 */
+                border-radius: 5px;        /* 圆角 */
+                padding: 10px;              /* 内边距 */
+                font-family: '{self.custom_font.family()}';
+                font-size: {self.fontPointSize}px; /* 字体大小 */
+            }}
+            QMessageBox QPushButton:hover {{
+                background-color: #1E88E5;  /* 鼠标悬停按钮背景色 */
+            }}
+        """)
+        
+        log_box.setStandardButtons(QMessageBox.Ok)
+        log_box.button(QMessageBox.Ok).setText("确定")
+        log_box.button(QMessageBox.Ok).setStyleSheet(f"""
+            font-family: '{self.custom_font.family()}';        /* 设置字体 */
+            font-size: {self.fontPointSize}px;            /* 字体大小 */
+            background-color: #2196F3;  /* 蓝色背景 */
+            color: white;               /* 白色文字 */
+            border: none;               /* 去掉边框 */
+            border-radius: 5px;         /* 边框圆角 */
+            padding: 10px;         /* 内边距 */
+            font-size: {self.fontPointSize}px;            /* 字体大小 */
+            font-weight: bold;          /* 粗体 */
+        """)
+        
+        # 显示消息框
+        log_box.exec_()
 
 
     # 创建结果显示区域的标签

@@ -5,6 +5,11 @@ from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QDesktopWidget
 import os
 
+# 导入版本信息
+from config import version_info
+# 在 createMenus 函数中
+current_version = version_info()
+
 
 # 简介  
 def showHomeContent(self):
@@ -209,7 +214,7 @@ def showHomeContent(self):
     self.layout.setStretchFactor(container, 1)  # 确保容器在主窗口中垂直居中
 
     # 设置窗口标题和状态栏消息
-    self.setWindowTitle('SectionIstool-关于')
+    self.setWindowTitle(f'SectionIstool - 关于 - {current_version}')
 
     # 返回container，以便可以在initUI中使用
     return container

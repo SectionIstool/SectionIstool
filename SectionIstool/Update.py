@@ -1,6 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QMessageBox, QTabWidget
+from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QMessageBox
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QTimer
 import json
 import os
 from PyQt5.QtCore import Qt
@@ -9,6 +8,11 @@ from datetime import datetime
 from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QFrame
+
+# 导入版本信息
+from config import version_info
+# 在 createMenus 函数中
+current_version = version_info()
 
 def check_update(self):
     # 清空当前内容
@@ -40,150 +44,85 @@ def check_update(self):
     self.fontPointSize = int(min(screenWidth, screenHeight) * font_scale_factor)
     self.custom_font.setPointSize(self.fontPointSize)
 
-
-    # 软件信息
-    self.SectionIstool_info = {
-        "name": "SectionIstool",
-        "version": "1.1.1.1",
-        "url": "https://mirror.ghproxy.com/https://github.com/SectionIstool/SectionIstool/releases/download/1.1.1.1/Toolbox_Setup_v1.1.1.1.exe",
-        "format": "exe",
-        "body": "1. 修复了一些已知问题。\n2. 优化了界面。\n3. 新增了一些功能。"
-    }
-    
-    # 当前版本信息
-    self.current_version = "1.1.1.0"  # 示例版本号
-
-    # 更新状态标签的框
-    self.update_status_frame = QFrame()
-    self.update_status_frame.setStyleSheet("""
-        QFrame {
-            background-color: #E3F2FD; /* 淡蓝色背景 */
-            border: 1px solid #9FC8E9; /* 边框颜色 */
-            border-radius: 5px; /* 圆角 */
-        }
-    """)
-
     # 更新状态标签
-    self.update_status_label = QLabel("当前更新状态：")
-    self.update_status_label.setFont(QFont(f'{self.custom_font.family()}', self.fontPointSize + 6))
-    self.update_status_label.setStyleSheet("color: #2196F3;")  # 设置颜色
-    self.update_status_label.setAlignment(Qt.AlignLeft)  # 左对齐
-    self.update_status_label.setContentsMargins(10, 10, 10, 10)  # 设置内边距
-
-    # 将更新状态标签添加到框中
-    update_status_layout = QVBoxLayout()
-    update_status_layout.addWidget(self.update_status_label)
-    self.update_status_frame.setLayout(update_status_layout)
-
-    # 上次检查更新时间的框
-    self.last_checked_frame = QFrame()
-    self.last_checked_frame.setStyleSheet("""
-        QFrame {
-            background-color: #E3F2FD; /* 淡蓝色背景 */
-            border: 1px solid #9FC8E9; /* 边框颜色 */
-            border-radius: 5px; /* 圆角 */
-        }
-    """)
+    self.update_status_label = QLabel()
+    self.update_status_label.setFixedHeight(int(screenHeight * 0.05))
+    self.update_status_label.setStyleSheet(f"font-size: {self.fontPointSize + 6}px; font-family: '{self.custom_font.family()}'; color: #000000;")  # 设置颜色
+    self.update_status_label.setAlignment(Qt.AlignLeft | Qt.AlignTop)  # 水平居中, 顶部
 
     # 获取上次检查更新时间标签
     self.last_checked_label = QLabel("上次检查更新时间：")
-    self.last_checked_label.setFont(QFont(f'{self.custom_font.family()}', self.fontPointSize + 4))
-    self.last_checked_label.setStyleSheet("color: #2196F3;")  # 设置颜色
-    self.last_checked_label.setAlignment(Qt.AlignLeft)  # 左对齐
-    self.last_checked_label.setContentsMargins(10, 10, 10, 10)  # 设置内边距
+    self.last_checked_label.setFixedHeight(int(screenHeight * 0.05))
+    self.last_checked_label.setStyleSheet(f"font-size: {self.fontPointSize}px; font-family: '{self.custom_font.family()}'; color: #000000;")  # 设置颜色
+    self.last_checked_label.setAlignment(Qt.AlignLeft | Qt.AlignTop)  # 水平居中, 顶部
 
-    # 将上次检查更新时间标签添加到框中
-    last_checked_layout = QVBoxLayout()
-    last_checked_layout.addWidget(self.last_checked_label)
-    self.last_checked_frame.setLayout(last_checked_layout)
+    # 更新日志框
+    self.update_log_frame = QFrame()  # 创建一个框
+    self.update_log_frame.setStyleSheet("background-color: #F0F0F0; border: 1px solid #CCCCCC; border-radius: 5px;")  # 设置框的样式
 
     # 更新日志标签
     self.update_log_label = QLabel()
-    self.update_log_label.setFont(QFont(f'{self.custom_font.family()}', self.fontPointSize + 2))
-    self.update_log_label.setStyleSheet("color: #333333;")  # 设置颜色
-    self.update_log_label.setAlignment(Qt.AlignLeft)  # 左对齐
-    self.update_log_label.setContentsMargins(10, 10, 10, 10)  # 设置内边距
+    self.update_log_label.setStyleSheet(f"font-size: {self.fontPointSize + 2}px; font-family: '{self.custom_font.family()}'; color: #000000;")  # 设置颜色
+    self.update_log_label.setAlignment(Qt.AlignLeft | Qt.AlignTop)  # 左对齐, 顶部
+    self.update_log_label.setWordWrap(True)  # 自动换行
 
+    # 设置更新日志框的布局
+    update_log_layout = QVBoxLayout()
+    update_log_layout.addWidget(self.update_log_label)  # 将更新日志标签添加到布局中
+    self.update_log_frame.setLayout(update_log_layout)  # 将布局设置到框中
 
+    # 设置更新日志框的尺寸
+    self.update_log_frame.setFixedWidth(int(screenWidth * 0.5))
+    self.update_log_frame.setFixedHeight(int(screenHeight * 0.4))
 
     # 按钮
     check_update_button = QPushButton("检查更新")
-    check_update_button.setFont(QFont(f'{self.custom_font.family()}', self.fontPointSize + 2))
-    check_update_button.setStyleSheet("background-color: #2196F3; color: white;")
+    check_update_button.setStyleSheet(f"""
+        QPushButton {{
+            background-color: #2196F3;  /* 按钮背景 */
+            color: white;                /* 白色文字 */
+            border: none;                /* 去掉边框 */
+            border-radius: 10px;        /* 圆角 */
+            padding: 12px;              /* 内边距 */
+            font-family: '{self.custom_font.family()}'; /* 字体 */
+            font-size: {self.fontPointSize + 2}px;     /* 字体大小 */
+            font-weight: bold;          /* 加粗 */
+        }}
+        QPushButton:hover {{
+            background-color: #1976D2;  /* 鼠标悬停时的背景色 */
+        }}
+        QPushButton:pressed {{
+            background-color: #2196F3;  /* 按钮被按下时的背景色 */
+        }}
+    """)
+    # 宽度自适应
+    check_update_button.setFixedWidth(int(screenWidth * 0.2))
+    # 高度自适应
+    check_update_button.setFixedHeight(int(screenHeight * 0.04))
+    # 点击事件
     check_update_button.clicked.connect(lambda: check_for_updates(self))
-
-    # 选项卡
-    self.tabs = QTabWidget()
-    # 设置大小
-    self.tabs.adjustSize()
-    self.tabs.setStyleSheet(f"""
-        QTabWidget {{
-            background-color: #ffffff; /* 设置选项卡容器背景色为白色 */
-            border: 1px solid #dcdcdc; /* 选项卡边框 */
-            border-radius: 8px; /* 圆角 */
-        }}
-        QTabBar::tab {{
-            font-family: {self.custom_font.family()};
-            font-size: {self.fontPointSize + 2}px; /* 字体大小 */
-            background: #f0f8ff; /* 选项卡背景颜色 */
-            color: #333333; /* 文字颜色 */
-            padding: 12px; /* 内部填充 */
-            border: 1px solid #dcdcdc; /* 边框 */
-            border-bottom: none; /* 底部边框去掉 */
-            border-radius: 8px 8px 0 0; /* 上圆角效果 */
-        }}
-        QTabBar::tab:selected {{
-            background: #f0f8ff; /* 选中时的背景颜色 */
-            font-weight: bold; /* 加粗文字 */
-        }}
-        QTabBar::tab:hover {{
-            background: #f0f8ff; /* 鼠标悬停背景颜色 */
-        }}
-    """)
-
-
-    update_log_widget = QWidget()  # 创建新的 QWidget 作为选项卡内容
-    update_log_layout = QVBoxLayout()  # 创建新的布局
-
-    # 为更新日志标签设置美化样式
-    self.update_log_label.setAlignment(Qt.AlignLeft)  # 设置对齐方式为左对齐
-    self.update_log_label.setStyleSheet(f"""
-        font-size: {self.fontPointSize + 2}px;
-        font-family: {self.custom_font.family()};
-        color: #333333; 
-        padding: 10px; /* 内部填充 */
-    """)  # 设置文本颜色和内部填充
-
-
-    # 创建标题标签并设置样式
-    title_label = QLabel(f"SectionIstool - {self.SectionIstool_info['version']} 更新内容")
-    title_label.setFont(self.custom_font)  # 使用自定义字体
-    title_label.setStyleSheet("""
-        font-size: 16px; /* 字体大小 */
-        font-weight: bold; /* 加粗 */
-        color: #000000; /* 字体颜色 */
-        padding: 10px; /* 内部填充 */
-    """)
-
-    # 将标题标签和更新日志标签添加到布局中
-    update_log_layout.addWidget(title_label, alignment=Qt.AlignTop | Qt.AlignLeft)  # 添加标题标签到更新日志布局的顶部
-
-    update_log_layout.addWidget(self.update_log_label, alignment=Qt.AlignTop | Qt.AlignLeft)  # 将更新日志标签添加到布局中并设置对齐方式
-    update_log_widget.setLayout(update_log_layout)  # 将布局设置给新的 QWidget
-    self.tabs.addTab(update_log_widget, "更新日志")  # 将这个 QWidget 添加到选项卡中
 
     # 主布局
     main_layout = QVBoxLayout()
-    main_layout.addWidget(self.update_status_frame)
-    main_layout.addWidget(self.last_checked_frame)
+    main_layout.setSpacing(5)
+    main_layout.addWidget(self.update_status_label)
+    main_layout.addWidget(self.last_checked_label)
     main_layout.addWidget(check_update_button)
-    main_layout.addWidget(self.tabs)
+    main_layout.addWidget(self.update_log_frame)
+
+    # 设置主布局到您的窗口或容器
+    self.setLayout(main_layout)
+
 
     # 创建一个容器
     container = QWidget()
-    container.setLayout(main_layout)  # 设置容器的主布局
+    container.setLayout(main_layout)  
 
-    # 将容器添加到主窗口的布局中
+    # 主布局设置
+    main_layout.setAlignment(Qt.AlignLeft  | Qt.AlignTop)  # 左上角对齐
+    main_layout.setContentsMargins(0, 0, 0, 0)  # 设置边距为0，确保居中效果明显
+
+    # 将容器添加到窗口的布局中
     self.layout.addWidget(container)
     self.layout.setStretchFactor(container, 1)
     self.setWindowTitle('SectionIstool - 更新')
@@ -191,28 +130,31 @@ def check_update(self):
     # 显示初始信息
     update_information(self) 
 
-    # 初始化定时器
-    self.timer = QTimer(self)
-    self.timer.timeout.connect(lambda: update_information(self))
-    self.timer.start(800) 
-
     # 返回容器，以便可以在其他方法中使用
     return container
 
-def update_information(self):
-    # 更新状态标签
-    update_status = get_update_status(self)
-    if update_status:
-        self.update_status_label.setText(f"当前更新状态：{update_status}")
-    else:
-        self.update_status_label.setText("当前未检查更新")
 
-    # 更新时间标签
-    last_checked_time = get_last_checked_time(self)
-    if last_checked_time:
-        self.last_checked_label.setText(f"上次检查更新时间：{last_checked_time}")
+def update_information(self):
+    update_status = get_update_status(self)
+
+    # 检查 Update Status Label
+    if self.update_status_label is not None:  # 确保该标签仍然存在
+        self.update_status_label.setText(f"{update_status}")
     else:
-        self.last_checked_label.setText("当前未检查更新")
+        print("更新状态标签不可用")
+
+    last_checked_time = get_last_checked_time(self)
+
+    # 检查 Last Checked Label
+    if self.last_checked_label is not None:  # 确保该标签仍然存在
+        if last_checked_time:
+            self.last_checked_label.setText(f"上次检查更新时间：{last_checked_time}")
+        else:
+            self.last_checked_label.setText("当前未检查更新")
+    else:
+        print("上次检查更新时间标签不可用")
+
+
 
 
 # 更新时间
@@ -270,7 +212,7 @@ def get_shanghai_time(self):
         return datetime.fromisoformat(time_info['datetime']).strftime("%Y年%m月%d日 %H:%M:%S")
     except Exception:
         # 如果请求失败，则获取本地时间并格式化
-        return datetime.now().strftime("%Y年%m月%d日 %H:%M:%S")
+        return datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
 # 获取上次更新时间
 def get_last_checked_time(self):
@@ -298,23 +240,39 @@ def get_update_status(self):
 
 def check_for_updates(self):
     update_status_label_text(self, "检查更新中...")  # 更新状态为检查中
+    update_information(self)  # 递归调用，以便实时更新
     # 更新时间
     update_last(self)
     # 获取SectionIstool_info
-    SectionIstool_info = self.SectionIstool_info
+    SectionIstool_info = self.SectionIstool_info[0]
     try:
         latest_version = SectionIstool_info['version']
 
         # 版本比较
-        if latest_version != self.current_version:
+        if latest_version != current_version:
             # 发现新版本
-            self.update_log_label.setText(SectionIstool_info['body'])  # 显示更新日志
+            self.update_log_label.setText(SectionIstool_info['note'])  # 显示更新日志
             update_status_label_text(self, f"发现新版本 {latest_version}")  # 更新状态
+            update_information(self)  # 递归调用，以便实时更新
             
             # 创建确认更新的对话框并设置样式
             reply = QMessageBox(self)
             reply.setWindowTitle('更新可用')
             reply.setText(f"发现新版本 {latest_version}，您要更新吗？")
+            reply.setStyleSheet(f"""
+                QMessageBox {{
+                    background-color: #ffffff; /* 背景色 */
+                    border: 1px solid #dcdcdc; /* 边框 */
+                    border-radius: 8px; /* 圆角 */
+                }}
+                QLabel {{
+                    font-size: {self.fontPointSize + 3}px; /* 字体大小 */
+                    font-family: {self.custom_font.family()}; /* 字体 */
+                    color: #333333; /* 字体颜色 */
+                    padding: 10px; /* 内部填充 */
+                }}
+            """)
+            
             reply.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             reply.setDefaultButton(QMessageBox.Yes)  # 默认选项为“是”
 
@@ -324,7 +282,7 @@ def check_for_updates(self):
             yes_button.setStyleSheet(f"""
                 font-size: {self.fontPointSize + 2}px; /* 字体大小 */
                 font-family: {self.custom_font.family()}; /* 字体 */
-                background-color: #4CAF50; /* 绿色背景 */
+                background-color: #2196F3; /* 蓝色背景 */
                 color: white; /* 字体颜色 */
                 border-radius: 5px; /* 圆角 */
                 padding: 10px; /* 内边距 */
@@ -347,14 +305,16 @@ def check_for_updates(self):
                 perform_update(self, SectionIstool_info)
             elif reply.clickedButton() == no_button:
                 update_status_label_text(self, "已取消更新")  # 更新状态并记录
-        
+                update_information(self)  # 递归调用，以便实时更新
         else:
             self.update_log_label.setText("")  # 不显示更新日志
             update_status_label_text(self, "当前已是最新版本")  # 更新状态并记录
+            update_information(self)  # 递归调用，以便实时更新
             QMessageBox.information(self, "无更新", "当前已是最新版本")
 
     except Exception as e:
         update_status_label_text(self, "检查更新失败")  # 更新状态并记录
+        update_information(self)  # 递归调用，以便实时更新
         QMessageBox.critical(self, "错误", f"检查更新时出错：{e}")
 
 

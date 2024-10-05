@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QWidget, QPushButton, QFileDialog
 import os
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtWidgets import QDesktopWidget
 
 
 # 设置
@@ -8,6 +10,31 @@ def showSettingsContent(self):
     # 清空当前内容
     for i in reversed(range(self.layout.count())):
         self.layout.itemAt(i).widget().deleteLater()
+
+    # 加载自定义字体
+    font_path = os.path.join(os.path.dirname(__file__), 'font\\HarmonyOS_Sans_Medium.ttf')  # 相对路径
+    font_id = QFontDatabase.addApplicationFont(font_path)
+    
+    # 检查字体是否加载成功
+    if font_id != -1:
+        self.custom_font = QFont(QFontDatabase.applicationFontFamilies(font_id)[0])
+    else:
+        self.custom_font = QFont("黑体")  # 默认字体
+
+    # 设置字体
+    self.setFont(self.custom_font)
+
+    # 获取屏幕尺寸
+    screen = QDesktopWidget().availableGeometry()
+    screenWidth = screen.width()
+    screenHeight = screen.height()
+
+    # 定义缩放因子
+    font_scale_factor = 0.014
+
+    # 计算字体大小
+    self.fontPointSize = int(min(screenWidth, screenHeight) * font_scale_factor)
+    self.custom_font.setPointSize(self.fontPointSize)
 
     # 创建一个QWidget作为容器
     container = QWidget()
@@ -25,22 +52,22 @@ def showSettingsContent(self):
     change_download_dir_button = QPushButton('设置/修改下载目录', self)
     change_download_dir_button.clicked.connect(lambda: change_download_dir(self))
     # 设置按钮的样式和文本对齐
-    change_download_dir_button.setStyleSheet(""" 
-        QPushButton {
-            font-family: "SimHei";
+    change_download_dir_button.setStyleSheet(f""" 
+        QPushButton {{
+            font-family: "{self.custom_font.family()}";
             background-color: #2196F3;
             color: white;
             border: none;
             border-radius: 5px;
             padding: 10px;
-            font-size: 15px;
-        }
-        QPushButton:hover {
+            font-size: {self.fontPointSize + 2}px;
+        }}
+        QPushButton:hover {{
             background-color: #1976D2; /* 鼠标悬停颜色 */
-        }
-        QPushButton:pressed {
+        }}
+        QPushButton:pressed {{
             background-color: #1976D2; /* 点击时颜色 */
-        }
+        }}
     """)
 
     
