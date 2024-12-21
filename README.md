@@ -18,7 +18,7 @@
 </div>
 
 > [!important]
-> **此项目仍在早期开发中，使用过程中可能会遇到一些未知的问题！**
+> **此项目仍在早期开发中，使用过程中可能会遇到一些未知的问题！** /n
 > **如果您有任何建议或意见，欢迎提交 [Issue](https://github.com/SectionIstool/SectionIstool/issues)！**
 
 > [!tip]
