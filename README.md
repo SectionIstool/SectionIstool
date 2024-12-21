@@ -13,7 +13,7 @@
 
 该软件会使您在学校班级电脑中方便、快捷的下载适合班级下载各类软件
 
-| 下载 [Realeases](https://github.com/lzy98276/SectionIstool/releases) |
+| 下载 [Releases](https://github.com/lzy98276/SectionIstool/releases) |
 
 </div>
 
