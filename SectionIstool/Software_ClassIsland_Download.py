@@ -211,7 +211,7 @@ def showSoftwareClassIslandDownloadContent(self):
         "}"
     )
 
-    #使用回车进行搜索
+    # 使用回车进行搜索
     search_box.returnPressed.connect(lambda: searchSoftwares(search_box.text()))
 
     # 创建一个 QFrame 用于包裹表格

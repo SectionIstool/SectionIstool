@@ -13,12 +13,11 @@ class DownloadWorker(QThread):
     progress = pyqtSignal(int, int, str, str, str)  # 更新信号中的参数列表
     finished = pyqtSignal(str)  # 下载完成信号
 
-    def __init__(self, url, download_path, custom_filename, identifier):
+    def __init__(self, url, download_path, custom_filename):
         super().__init__()
         self.url = url
         self.download_path = download_path
         self.custom_filename = custom_filename
-        self.identifier = identifier
         self.download_active = True
 
         from custom_message import show_custom_message
@@ -329,7 +328,7 @@ class DownloadManager(QDialog):
 
 
 
-    def startDownload(self, url, download_path, custom_filename, identifier):
+    def startDownload(self, url, download_path, custom_filename):
         # 检查是否已存在同名文件
         final_file = os.path.join(download_path, custom_filename)
         if os.path.exists(final_file):
@@ -396,10 +395,9 @@ class DownloadManager(QDialog):
                     return
 
                 self.download_active = True
-                self.download_identifier = identifier  # 存储标识符
 
                 # 创建并启动下载线程
-                self.start_download_thread(url, download_path, custom_filename, identifier)
+                self.start_download_thread(url, download_path, custom_filename)
                 self.show()  # 显示下载对话框
 
             else:
@@ -407,12 +405,11 @@ class DownloadManager(QDialog):
 
         else:
             self.download_active = True
-            self.download_identifier = identifier  # 存储标识符
-            self.start_download_thread(url, download_path, custom_filename, identifier)
+            self.start_download_thread(url, download_path, custom_filename)
             self.show()  # 显示下载对话框
 
-    def start_download_thread(self, url, download_path, custom_filename, identifier):
-        self.thread = DownloadWorker(url, download_path, custom_filename, identifier)
+    def start_download_thread(self, url, download_path, custom_filename):
+        self.thread = DownloadWorker(url, download_path, custom_filename)
         self.thread.progress.connect(self.update_progress)  # 连接进度更新信号
         self.thread.finished.connect(self.download_completed)  # 下载完成连接信号
         self.thread.start()  # 启动线程
@@ -467,9 +464,6 @@ class DownloadManager(QDialog):
     def download_completed(self, final_file):
         self.show_custom_message(self, "完成", "当前下载任务已完成！", QMessageBox.Information)
 
-        if self.download_identifier:
-            self.perform_action_based_on_identifier(self.download_identifier)
-
 
     def open_file(self):
         final_file = os.path.join(self.thread.download_path, self.thread.custom_filename)
@@ -487,10 +481,3 @@ class DownloadManager(QDialog):
     def closeEvent_All(self):
         self.close()  # 忽略关闭事件，等待下载完成后再关闭
         pass
-
-    def perform_action_based_on_identifier(self, identifier):
-        if identifier in ["Software_Download", "School_resources", "Wallpaper_Download", "Awesome_Download", "Aotomatic_installation", "None"]:
-            pass
-
-        else:
-            self.show_custom_message(self, "警告", f"未知的功能标识符: {identifier}", QMessageBox.Warning)
