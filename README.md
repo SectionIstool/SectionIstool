@@ -4,11 +4,11 @@
 
 # SectionIstool
 
-[![Downloads](https://img.shields.io/github/downloads/SectionIstool/SectionIstool/total?style=social&label=下载量&logo=github)](https://github.com/SectionIstool/SectionIstool/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/SectionIstool/SectionIstool/total?style=social&label=Downloads&logo=github)](https://github.com/SectionIstool/SectionIstool/releases/latest)
 [![GitHub Issues](https://img.shields.io/github/issues-search/SectionIstool/SectionIstool?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/SectionIstool/SectionIstool/issues)
 [![Release](https://img.shields.io/github/v/release/SectionIstool/SectionIstool?style=flat&color=%233fb950&label=正式版)](https://github.com/SectionIstool/SectionIstool/releases/latest)
 [![Beta](https://img.shields.io/github/v/release/SectionIstool/SectionIstool?include_prereleases&style=social-square&label=测试版)](https://github.com/SectionIstool/SectionIstool/releases/)
-[![Github Last Commit](https://img.shields.io/github/last-commit/SectionIstool/SectionIstool?label=最后更新)](https://github.com/SectionIstool/SectionIstool/commits/master)
+[![Github Last Commit](https://img.shields.io/github/last-commit/SectionIstool/SectionIstool)](https://github.com/SectionIstool/SectionIstool/commits/master)
 [![QQ群](https://img.shields.io/badge/-QQ%E7%BE%A4%EF%BD%9C833875216-blue?style=flat&logo=TencentQQ)](https://qm.qq.com/q/ASRSNUJuve)
 [![bilibili](https://img.shields.io/badge/-UP%E4%B8%BB%EF%BD%9C黎泽懿-%23FB7299?style=flat&logo=bilibili)](https://space.bilibili.com/520571577)
 
