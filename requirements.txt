@@ -1,2 +1,4 @@
 PyQt6
+Nuitka
+Loguru
 PyQt6-Fluent-Widgets
