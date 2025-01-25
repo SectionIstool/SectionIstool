@@ -23,9 +23,6 @@
 >
 > **如果您有任何建议或意见，欢迎提交 [Issue](https://github.com/SectionIstool/SectionIstool/issues)！**
 
-> [!tip]
-> **该软件更新缓慢 <1.3.0.0> 版本更换软件界面、主要逻辑等方面**
-
 ## 功能
 ### 主要功能
 - [ ] SectionIstool 插件式程序对应需求下载
@@ -46,11 +43,6 @@
 如果这个项目对您有帮助，请点亮 Star ⭐
 
 </div>
-
-## 软件截图 - 1.2.0.0
-
-![关于界面](ScreenSots/about_Page.png)
-![下载界面](ScreenSots/ClassIsland_Page.png)
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSectionIstool%2FSectionIstool.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2FSectionIstool%2FSectionIstool?ref=badge_large&issueType=license)
