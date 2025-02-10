@@ -18,7 +18,7 @@ from ZongziTEK_Widget import ZongziTEK_Widget
 from ElectronClassSchedule_Widget import ElectronClassSchedule_Widget
 
 from Sticky_attention_Widget import Sticky_attention_Widget
-from dsz_exam_Widget import dsz_exam_Widget
+from ExamAware_Widget import ExamAware_Widget
 
 from Inkeys_Widget import Inkeys_Widget
 from Ink_Canvas_Widget import Ink_Canvas_Widget
@@ -130,7 +130,7 @@ class Window(FluentWindow):
         self.Sticky_attention_software = Sticky_attention_Widget(self) # type: ignore
         self.Sticky_attention_software.setObjectName("Sticky_attention_software")  # 设置对象名称
 
-        self.dsz_exam_showboard = dsz_exam_Widget(self) # type: ignore
+        self.dsz_exam_showboard = ExamAware_Widget(self) # type: ignore
         self.dsz_exam_showboard.setObjectName("dsz_exam_showboard")  # 设置对象名称
 
         # self.Exam_dashboard_Next_software = Exam_dashboard_Next_Widget(self) # type: ignore
@@ -177,14 +177,14 @@ class Window(FluentWindow):
         
         self.navigationInterface.addSeparator(NavigationItemPosition.SCROLL)
 
-        self.addSubInterface(self.Sticky_attention_software, QIcon('./icon/Sticky_attention_software.png'), 'Sticky attention', NavigationItemPosition.SCROLL) # type: ignore
-        self.addSubInterface(self.dsz_exam_showboard, QIcon('./icon/dsz_exam_showboard.png'), 'dsz exam showboard', NavigationItemPosition.SCROLL) # type: ignore
+        self.addSubInterface(self.Sticky_attention_software, QIcon('./icon/Sticky_attention_software.png'), '作业看板 Sticky attention', NavigationItemPosition.SCROLL) # type: ignore
+        self.addSubInterface(self.dsz_exam_showboard, QIcon('./icon/dsz_exam_showboard.png'), '考试看板 ExamAware', NavigationItemPosition.SCROLL) # type: ignore
         # self.addSubInterface(self.Exam_dashboard_Next_software, QIcon('./icon/Exam_dashboard_Next_software.svg'), '考试看板 Next', NavigationItemPosition.SCROLL) # type: ignore
         
         self.navigationInterface.addSeparator(NavigationItemPosition.SCROLL)
         
         # self.addSubInterface(self.InkCanvasForClass_software, QIcon('./icon/InkCanvasForClass_software.png'), 'InkCanvasForClass', NavigationItemPosition.SCROLL) # type: ignore
-        self.addSubInterface(self.Inkeys_software, QIcon('./icon/Inkeys_software.png'), 'Inkeys', NavigationItemPosition.SCROLL) # type: ignore
+        self.addSubInterface(self.Inkeys_software, QIcon('./icon/Inkeys_software.png'), '智绘教 Inkeys', NavigationItemPosition.SCROLL) # type: ignore
         # self.addSubInterface(self.Ink_Canvas_Artistry_software, QIcon('./icon/Ink_Canvas_Artistry_software.png'), 'Ink Canvas Artistry', NavigationItemPosition.SCROLL) # type: ignore
         self.addSubInterface(self.Ink_Canvas_software, QIcon('./icon/Ink_Canvas_software.png'), 'Ink Canvas', NavigationItemPosition.SCROLL) # type: ignore
         # self.addSubInterface(self.Ink_Canvas_Reborn_software, QIcon('./icon/Ink_Canvas_Reborn_software.png'), 'Ink Canvas Reborn', NavigationItemPosition.SCROLL) # type: ignore

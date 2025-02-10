@@ -73,7 +73,7 @@ if isinstance(read_json_version, list) and len(read_json_version) > 0:  # type: 
 else:
     write_json('./Settings/Settings.json', f'{software_name_download_second}_download_version', 'Unknown')
 
-class dsz_exam_Widget(QFrame):
+class ExamAware_Widget(QFrame):
     def __init__(self, parent: QFrame = None): # type: ignore
         super().__init__(parent=parent)
 
