@@ -1,10 +1,10 @@
-from qfluentwidgets import SubtitleLabel
+from qfluentwidgets import SubtitleLabel # type: ignore
 from PyQt6.QtWidgets import QLabel, QFrame, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QFont  # 添加 QFont 导入
 
 class Home_Widget(QFrame):
-    def __init__(self, parent: QFrame = None):
+    def __init__(self, parent: QFrame = None): # type: ignore
         super().__init__(parent=parent)
 
         # 创建垂直布局
@@ -26,7 +26,7 @@ class Home_Widget(QFrame):
         layout.addWidget(self.title)
 
         # 介绍文本
-        self.introduction = QLabel('SectionIstool 是一款便于用户进行下载的软件，主打一个便利', self)
+        self.introduction = QLabel('SectionIstool 是一款便于用户进行下载的软件，主打一个便利吧?', self)
         self.introduction.setFont(QFont('Arial', 16))  # 使用默认字体 Arial
         self.introduction.setStyleSheet("color: black;")
         self.introduction.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -39,11 +39,9 @@ class Home_Widget(QFrame):
         layout.addWidget(self.features_label)
 
         # 特点内容
-        self.features = QLabel('1. 基于Python的开源软件，跨平台兼容性强。\n'
-                               '2. 功能丰富，可满足教师和学生日常管理课堂的需求。\n'
-                               '3. 界面简洁，操作简单，使用起来不费吹灰之力。\n'
-                               '4. 适合中小学教育，适用于各种教学场景。\n'
-                               '5. 开源免费，无需担心版权问题。', self)
+        self.features = QLabel('1. 基于Python的开源软件。\n'
+                               '2. 界面简洁，操作简单，使用起来不费吹灰之力。\n'
+                               '3. 开源免费，无需担心版权问题。', self)
         self.features.setAlignment(Qt.AlignmentFlag.AlignCenter)  # 内容居中
         self.features.setFont(QFont('Arial', 16))  # 使用默认字体 Arial
         self.features.setStyleSheet("color: black;")

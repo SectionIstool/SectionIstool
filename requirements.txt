@@ -1,4 +1,4 @@
 PyQt6
-Nuitka
-Loguru
+pyinstaller
+loguru
 PyQt6-Fluent-Widgets
