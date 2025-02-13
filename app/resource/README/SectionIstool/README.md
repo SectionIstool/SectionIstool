@@ -26,38 +26,19 @@
 ## 功能
 
 <!-- ✅ ❌ -->
-- ✅ 教学辅助软件/一体机软件 功能
+- ✅ SectionIstool 本身功能
+  - ✅ 软件(手动)更新功能
+- ✅ 软件下载功能
   - ✅ 教学辅助软件/一体机软件  -->  下载功能
-    - ✅ 支持下载任意版本
-    - ✅ 支持设置下载目录
-    - ✅ 支持设置下载源
-    - ✅ 支持下载方式
-    - ✅ 查看任意版本的更新日志
-  - ❌ 教学辅助软件/一体机软件  -->  安装功能
   - ❌ 教学辅助软件/一体机软件  -->  更新功能
   - ❌ 教学辅助软件/一体机软件  -->  卸载功能
-  - ❌ 教学辅助软件/一体机软件  -->  导出、备份、还原配置文件功能
-- ✅ 设置
-  - ❌ 支持导出、导入配置文件
-  - ✅ 支持浅色、深色主题、跟随系统主题
-  - ✅ 支持设置更新通道
-  - ✅ 支持设置更新镜像源
-  - ✅ 支持设置界面缩放大小
-  - ✅ 支持设置应用主题
-  - ✅ 支持设置可启用亚克力效果（亚克力效果仅限Win11）
-  - ✅ 软件自动更新功能
+- ❌ 设置
+    - ❌ 支持导出、导入配置文件
+    - ❌ 设置界面支持设置、修改软件的功能
 
 <!-- SCREENSHOTS -->
 ## 软件截图
-
-### **浅色-下载界面**
-![SectionIstool/下载界面](ScreenSots/SectionIstool-Light.png)
-### **深色-下载界面**
-![SectionIstool/下载界面](ScreenSots/SectionIstool-Dark.png)
-### **浅色-设置界面**
-![SectionIstool/下载界面](ScreenSots/SectionIstool-Light-Setting.png)
-### **深色-设置界面**
-![SectionIstool/下载界面](ScreenSots/SectionIstool-Dark-Setting.png)
+![SectionIstool-下载/关于页面](ScreenSots/image.png)
 
 <!-- CONTACT -->
 ## 联系

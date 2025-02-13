@@ -1,4 +1,6 @@
-PyQt6
-pyinstaller
+PyQt5
+"PyQt-Fluent-Widgets[full]"
+nuitka
 loguru
-PyQt6-Fluent-Widgets
+requests
+aiohttp
