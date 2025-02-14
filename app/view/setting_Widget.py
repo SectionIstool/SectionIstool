@@ -113,7 +113,8 @@ class setting_Widget(QFrame):
             '© ' + self.tr('Copyright') + f" {YEAR}, {AUTHOR}. " + self.tr('当前版本') + " " + VERSION
         )
         # 按钮的点击事件可以用!
-        self.aboutupdateCard.clicked.connect(lambda: self.update_manner_changed()) # type: ignore 
+        # self.aboutupdateCard.clicked.connect(lambda: self.update_manner_changed()) # type: ignore 
+        self.aboutupdateCard.clicked.connect(lambda: self.update_manner_changed_off()) # type: ignore 
 
         inner_layout_personal.addWidget(self.themeCard)
         inner_layout_personal.addWidget(self.zoomCard)
@@ -168,6 +169,37 @@ class setting_Widget(QFrame):
             return json_file[software_name][key]
         
         return 'Unknown'
+    def update_manner_changed_off(self): # type: ignore
+        # 读取配置文件中的版本号
+        releases_data = self.modify_setting_update_manner('./app/Settings/Settings.json', 'Update', 'version') # type: ignore
+        # 提取 tag_name 字段的值
+        if releases_data != 'Unknown':
+            release_name = releases_data
+        else:
+            release_name = 'Unknown'
+
+        if release_name == 'Unknown':
+            logger.error(f"无法读取当前版本号, 当前版已暂停自动更新服务(功能), 请前往 SectionIstool 关于页 下载最新版本 ✨")
+            InfoBar.error( # type: ignore
+                title='无法读取当前版本号',
+                content="无法读取当前版本号, 当前版已暂停自动更新服务(功能), 请前往 SectionIstool 关于页 下载最新版本 ✨",
+                isClosable=True,
+                position=InfoBarPosition.BOTTOM_RIGHT,
+                duration=20000,
+                parent=self
+            )
+            logger.error(f"无法读取当前版本号, 详情请查看日志文件 ✨")
+            return
+        logger.info(f"当前版本读取成功, 当前版本号为: {release_name}, 当前版已暂停自动更新服务(功能), 请前往 SectionIstool 关于页 下载最新版本 ✨")
+        InfoBar.success( # type: ignore
+            title='当前版本读取成功',
+            content=f"当前版本读取成功, 当前版本号为: {release_name}, 当前版已暂停自动更新服务(功能), 请前往 SectionIstool 关于页 下载最新版本 ✨",
+            isClosable=True,
+            position=InfoBarPosition.TOP,
+            duration=20000,
+            parent=self
+        )
+        return
     
     def update_manner_changed(self): # type: ignore
         # 读取配置文件中的版本号
@@ -185,7 +217,7 @@ class setting_Widget(QFrame):
                 content="无法读取当前版本号, 详情请查看日志文件 ✨",
                 isClosable=True,
                 position=InfoBarPosition.BOTTOM_RIGHT,
-                duration=-1,
+                duration=10000,
                 parent=self
             )
             logger.error(f"无法读取当前版本号, 详情请查看日志文件 ✨")
