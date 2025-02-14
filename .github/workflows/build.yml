@@ -136,17 +136,11 @@ jobs:
           path: ./dist/Sectionlstool/Sectionlstool.exe
 
       - name: Recompress
-          if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
-          run: |
-            del "zip/Sectionlstool-Windows-${{ matrix.arch }} (Unsigned).zip"
-            ./zip -r -q zip/Sectionlstool-Windows-${{ matrix.arch }}.zip dist/Sectionlstool/*
-
-      - name: Recompress
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         run: |
           del "zip/Sectionlstool-Windows-${{ matrix.arch }} (Unsigned).zip"
           ./zip -r -q zip/Sectionlstool-Windows-${{ matrix.arch }}.zip dist/Sectionlstool/*
-          
+
       - name: Upload signed application
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         uses: actions/upload-artifact@v4.4.2
