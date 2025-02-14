@@ -39,8 +39,6 @@ jobs:
         with:
           python-version: '3.8.10'
           architecture: ${{ matrix.arch }}
-      - name: Update pip
-        run: python3.8 -m pip install --upgrade pip
       - name: Setup uv
         uses: astral-sh/setup-uv@v4
       - name: Init zip folder
