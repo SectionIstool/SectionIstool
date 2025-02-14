@@ -1,3 +1,5 @@
+name: 构建
+
 # 触发工作流的事件
 on: 
   workflow_dispatch:
@@ -191,7 +193,5 @@ i libxcb-util1_0.4.0-1+b1_amd64.deb
     needs: [builder_matrix]
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     uses: ./.github/workflows/release.yml
-    permissions:
-      contents: write
     with:
       runid: ${{ github.run_id }}
