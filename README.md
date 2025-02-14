@@ -14,7 +14,7 @@
 
 该软件会使您在学校班级电脑中方便、快捷的下载适合班级下载各类软件
 
-| 下载 [Releases](https://github.com/SectionIstool/SectionIstool/releases) |
+| [Github 下载](https://github.com/SectionIstool/SectionIstool/releases) | [123云盘 下载](https://www.123684.com/s/9529jv-zggxh) |
 
 </div>
 
