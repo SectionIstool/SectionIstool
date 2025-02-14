@@ -14,11 +14,11 @@ jobs:
       fail-fast: false
       matrix:
         arch: [ x86, x64, arm64 ]
-        os: [ ubuntu-22.04, windows-latest, macos-13, macos-14 ]
+        os: [ ubuntu-20.04, windows-latest, macos-13, macos-14 ]
         exclude:
-          - os: ubuntu-22.04
+          - os: ubuntu-20.04
             arch: x86
-          - os: ubuntu-22.04
+          - os: ubuntu-20.04
             arch: arm64
           - os: macos-13
             arch: x86
@@ -71,7 +71,7 @@ jobs:
           ./zip -r -q "zip/Sectionlstool-Windows-${{ matrix.arch }} (Unsigned).zip" dist/Sectionlstool/*
 
       - name: Run Linux build
-        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
         run: |
           # 创建虚拟环境
           uv venv
