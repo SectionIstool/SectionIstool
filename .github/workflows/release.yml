@@ -1,9 +1,9 @@
 name: 生成 Changelog 并发布版本
 
 on:
-  # push:
-  #   tags:
-  #     - 'v*'
+  push:
+    tags:
+      - 'v*'
   workflow_call:
     inputs:
       runid:
