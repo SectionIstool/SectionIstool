@@ -194,15 +194,17 @@ jobs:
 
   release:
     needs: [debian, builder_matrix]
-    - name: 发布
-      uses: softprops/action-gh-release@v2
-      with:
-        token: ${{ secrets.Releases_BOT }}
-        files: zip/*
-        body_path: CHANGELOG.md
-        draft: false
-        prerelease: ${{ steps.release-type.outputs.is_beta == 'true' }}
-        tag_name: ${{ github.ref_name }}
-        name: SectionIstool 新版本 - ${{ github.ref_name }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest  # 添加这一行以指定运行环境
+    steps:
+      - name: 发布
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.Releases_BOT }}
+          files: zip/*
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: ${{ steps.release-type.outputs.is_beta == 'true' }}
+          tag_name: ${{ github.ref_name }}
+          name: SectionIstool 新版本 - ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
