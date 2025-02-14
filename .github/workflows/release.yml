@@ -1,6 +1,9 @@
 name: 生成 Changelog 并发布版本
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_call:
     inputs:
       runid:
@@ -23,21 +26,26 @@ jobs:
       - name: Get previous tag
         uses: younited/get-previous-tag-action@v1.0.0
         id: getprevtag
+
       - name: Set up git-cliff
         uses: kenji-miyake/setup-git-cliff@v1
+
       - name: Generate a changelog
         id: generate-changelog
         run: |
           git cliff
+
       - name: Prepare release
         run: |
           mkdir release
           mkdir artifacts
+
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           path: artifacts
           run-id: ${{ github.event.workflow_run.id }}
+
       - name: Prepare artifacts
         run: |
           mv artifacts/windows-latest-x64/* release/
@@ -46,11 +54,23 @@ jobs:
           mv artifacts/macos-13-x64/* release/
           mv artifacts/macos-14-arm64/* release/
 
+      - name: Determine release type
+        id: release-type
+        run: |
+          if [[ "${{ github.ref }}" == *"beta"* || "${{ github.ref }}" == *"alpha"* ]]; then
+            echo "is_beta=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_beta=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: release/*
           body_path: CHANGELOG.md
-          draft: true
+          draft: false
+          prerelease: ${{ steps.release-type.outputs.is_beta == 'true' }}
+          tag_name: ${{ github.ref_name }}
+          name: SectionIstool 新版本 - ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
