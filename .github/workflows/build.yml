@@ -32,19 +32,19 @@ jobs:
             arch: x64
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout repository
+      - name: 检出仓库
         uses: actions/checkout@v4.2.2
-      - name: Setup Python
+      - name: 安装 Python
         uses: actions/setup-python@v5.3.0
         with:
           python-version: '3.8.10'
           architecture: ${{ matrix.arch }}
-      - name: Setup uv
+      - name: 安装 uv
         uses: astral-sh/setup-uv@v4
-      - name: Init zip folder
+      - name: 初始化 zip 文件夹
         run: mkdir zip
 
-      - name: Run Windows build
+      - name: 运行 Windows 构建
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
           # 下载 zip.exe 工具
@@ -71,7 +71,7 @@ jobs:
           # 使用 zip.exe 工具将打包好的文件压缩成 ZIP 文件
           ./zip -r -q "zip/SectionIstool-Windows-${{ matrix.arch }} (Unsigned).zip" dist/SectionIstool/*
 
-      - name: Run Linux build
+      - name: 运行 Linux 构建
         if: ${{ matrix.os == 'ubuntu-20.04' }}
         run: |
           # 创建虚拟环境
@@ -96,7 +96,7 @@ jobs:
           # 使用系统自带的 zip 工具将打包好的文件压缩成 ZIP 文件
           zip -r -q zip/SectionIstool-Ubuntu22.04.zip dist/SectionIstool/*
 
-      - name: Run macOS build
+      - name: 运行 macOS 构建
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           # 创建虚拟环境
@@ -122,27 +122,27 @@ jobs:
           zip -r -q "zip/SectionIstool-macOS-${{ matrix.arch }} (bundle).zip" dist/SectionIstool.app/*
           zip -r -q zip/SectionIstool-macOS-${{ matrix.arch }}.zip dist/SectionIstool/*
 
-      - name: Upload unsigned application
+      - name: 上传未签名的应用程序
         if: ${{ ( matrix.os != 'windows-latest' && github.event_name != 'pull_request' ) || github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v4.4.2
         with:
           name: ${{ matrix.os }}-${{ matrix.arch }}
           path: ./zip
 
-      - name: Upload unsigned single file
+      - name: 上传未签名的单个文件
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         uses: actions/upload-artifact@v4.4.2
         with:
           name: windows-${{ matrix.arch }} (Unsigned single)
           path: ./dist/SectionIstool/SectionIstool.exe
 
-      - name: Recompress
+      - name: 删除未签名的 ZIP 文件
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         run: |
           del "zip/SectionIstool-Windows-${{ matrix.arch }} (Unsigned).zip"
           ./zip -r -q zip/SectionIstool-Windows-${{ matrix.arch }}.zip dist/SectionIstool/*
 
-      - name: Upload signed application
+      - name: 上传已签名的应用程序
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         uses: actions/upload-artifact@v4.4.2
         with:
@@ -154,20 +154,20 @@ jobs:
     container:
       image: debian:10
     steps:
-      - name: Install dependencies
+      - name: 安装依赖
         shell: bash
         run: |
           apt-get update
           apt-get install -y wget zip binutils libglib2.0-dev libfreetype6 libxfixes3 libgssapi-krb5-2 libdbus-1-3 libxext6 libfontconfig1 libxrandr2 libnspr4 libx11-xcb1 libxrender1 libasound2 libxkbcommon0 libxtst6 libnss3 libxdamage1 libxcomposite1 libcups2 libwayland-client0 libwayland-cursor0 libcairo2 libcairo-gobject2 libpango-1.0-0 libgtk-3-0 libgdk-pixbuf2.0-0 libxkbcommon-x11-0 libwayland-egl1 libxcb-xinerama0 libxcb-render-util0 libxcb-randr0 libxcb-image0 libxcb-sync1 libxcb-keysyms1 libxcb-shape0 libxcb-xfixes0 libxcb-icccm4 libxcb-glx0 git
           wget http://ftp.debian.org/debian/pool/main/x/xcb-util/libxcb-util1_0.4.0-1+b1_amd64.deb
           dpkg -i libxcb-util1_0.4.0-1+b1_amd64.deb
-      - name: Checkout repository
+      - name: 检出仓库
         uses: actions/checkout@v4.2.2
-      - name: Setup uv & python
+      - name: 安装 uv 和 Python
         uses: astral-sh/setup-uv@v4
         with:
           python-version: 3.8.10
-      - name: Run Linux (Debian 10) build
+      - name: 运行 Linux (Debian 10) 构建
         shell: bash
         run: |
           mkdir zip
@@ -186,17 +186,25 @@ jobs:
             --add-data LICENSE:.
           zip -r -q zip/SectionIstool-Debian10.zip dist/SectionIstool/*
 
-      - name: Upload
+      - name: 上传
         uses: actions/upload-artifact@v4.4.2
         with:
           name: debian10-x64
           path: ./zip
 
   release:
-    needs: [debian, builder_matrix]
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    uses: ./.github/workflows/release.yml
-    permissions:
-      contents: write
-    with:
-      runid: ${{ github.run_id }}
+    - name: 等待构建完成
+      needs: [debian, builder_matrix]
+      
+    - name: 发布
+      uses: softprops/action-gh-release@v2
+      with:
+        token: ${{ secrets.Releases_BOT }}
+        files: zip/*
+        body_path: CHANGELOG.md
+        draft: false
+        prerelease: ${{ steps.release-type.outputs.is_beta == 'true' }}
+        tag_name: ${{ github.ref_name }}
+        name: SectionIstool 新版本 - ${{ github.ref_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

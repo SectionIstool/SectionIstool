@@ -64,7 +64,6 @@ jobs:
             echo "is_beta=false" >> $GITHUB_ENV
           fi
 
-
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
