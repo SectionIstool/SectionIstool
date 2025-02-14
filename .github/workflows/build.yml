@@ -61,14 +61,14 @@ jobs:
           pyinstaller main.py `
             -w `
             -i ./resources/SectionIstool_icon.ico `
-            -n Sectionlstool `
+            -n SectionIstool `
             --contents-directory . `
             --add-data ./app/resource/icon:icon `
             --add-data ./app/resource/README:README `
             --add-data ./app/Settings:Settings `
             --add-data LICENSE:.
           # 使用 zip.exe 工具将打包好的文件压缩成 ZIP 文件
-          ./zip -r -q "zip/Sectionlstool-Windows-${{ matrix.arch }} (Unsigned).zip" dist/Sectionlstool/*
+          ./zip -r -q "zip/SectionIstool-Windows-${{ matrix.arch }} (Unsigned).zip" dist/SectionIstool/*
 
       - name: Run Linux build
         if: ${{ matrix.os == 'ubuntu-20.04' }}
@@ -85,14 +85,14 @@ jobs:
           pyinstaller main.py \
             -w \
             -i ./resources/SectionIstool_icon.ico \
-            -n Sectionlstool \
+            -n SectionIstool \
             --contents-directory . \
             --add-data ./app/resource/icon:icon \
             --add-data ./app/resource/README:README \
             --add-data ./app/Settings:Settings \
             --add-data LICENSE:.
           # 使用系统自带的 zip 工具将打包好的文件压缩成 ZIP 文件
-          zip -r -q zip/Sectionlstool-Ubuntu22.04.zip dist/Sectionlstool/*
+          zip -r -q zip/SectionIstool-Ubuntu22.04.zip dist/SectionIstool/*
 
       - name: Run macOS build
         if: ${{ startsWith(matrix.os, 'macos') }}
@@ -109,15 +109,15 @@ jobs:
           pyinstaller main.py \
             -w \
             -i ./resources/SectionIstool_icon.icns \
-            -n "Sectionlstool" \
+            -n "SectionIstool" \
             --contents-directory . \
             --add-data ./app/resource/icon:icon \
             --add-data ./app/resource/README:README \
             --add-data ./app/Settings:Settings \
             --add-data LICENSE:.
           # 使用系统自带的 zip 工具将打包好的文件压缩成 ZIP 文件
-          zip -r -q "zip/Sectionlstool-macOS-${{ matrix.arch }} (bundle).zip" dist/Sectionlstool.app/*
-          zip -r -q zip/Sectionlstool-macOS-${{ matrix.arch }}.zip dist/Sectionlstool/*
+          zip -r -q "zip/SectionIstool-macOS-${{ matrix.arch }} (bundle).zip" dist/SectionIstool.app/*
+          zip -r -q zip/SectionIstool-macOS-${{ matrix.arch }}.zip dist/SectionIstool/*
 
       - name: Upload unsigned application
         if: ${{ ( matrix.os != 'windows-latest' && github.event_name != 'pull_request' ) || github.event_name == 'pull_request' }}
@@ -131,13 +131,13 @@ jobs:
         uses: actions/upload-artifact@v4.4.2
         with:
           name: windows-${{ matrix.arch }} (Unsigned single)
-          path: ./dist/Sectionlstool/Sectionlstool.exe
+          path: ./dist/SectionIstool/SectionIstool.exe
 
       - name: Recompress
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
         run: |
-          del "zip/Sectionlstool-Windows-${{ matrix.arch }} (Unsigned).zip"
-          ./zip -r -q zip/Sectionlstool-Windows-${{ matrix.arch }}.zip dist/Sectionlstool/*
+          del "zip/SectionIstool-Windows-${{ matrix.arch }} (Unsigned).zip"
+          ./zip -r -q zip/SectionIstool-Windows-${{ matrix.arch }}.zip dist/SectionIstool/*
 
       - name: Upload signed application
         if: ${{ matrix.os == 'windows-latest' && github.event_name != 'pull_request' }}
@@ -174,7 +174,7 @@ jobs:
           uv pip install pyinstaller
           pyinstaller main.py \
             -w \
-            -n Sectionlstool \
+            -n SectionIstool \
             --contents-directory . \
             --add-data ./app/resource/icon:icon \
             --add-data ./app/resource/README:README \
