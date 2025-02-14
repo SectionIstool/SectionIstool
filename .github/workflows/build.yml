@@ -2,6 +2,8 @@ name: 构建
 
 # 触发工作流的事件
 on: 
+  push:
+  pull_request:
   workflow_dispatch:
 
 concurrency:
