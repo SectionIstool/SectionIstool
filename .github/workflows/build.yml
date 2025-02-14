@@ -191,11 +191,9 @@ jobs:
           name: debian10-x64
           path: ./zip
 
-  release:
+release:
     needs: [debian, builder_matrix]
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     uses: ./.github/workflows/release.yml
-    permissions:
-      contents: write
     with:
       runid: ${{ github.run_id }}
