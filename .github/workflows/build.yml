@@ -63,9 +63,9 @@ jobs:
             -i ./resources/SectionIstool_icon.ico `
             -n SectionIstool `
             --contents-directory . `
-            --add-data ./app/resource/icon:icon `
-            --add-data ./app/resource/README:README `
-            --add-data ./app/Settings:Settings `
+            --add-data ./app/resource/icon:app/resource/icon `
+            --add-data ./app/resource/README:app/resource/README `
+            --add-data ./app/Settings:app/Settings `
             --add-data LICENSE:.
           # 使用 zip.exe 工具将打包好的文件压缩成 ZIP 文件
           ./zip -r -q "zip/SectionIstool-Windows-${{ matrix.arch }} (Unsigned).zip" dist/SectionIstool/*
@@ -87,9 +87,9 @@ jobs:
             -i ./resources/SectionIstool_icon.ico \
             -n SectionIstool \
             --contents-directory . \
-            --add-data ./app/resource/icon:icon \
-            --add-data ./app/resource/README:README \
-            --add-data ./app/Settings:Settings \
+            --add-data ./app/resource/icon:app/resource/icon \
+            --add-data ./app/resource/README:app/resource/README \
+            --add-data ./app/Settings:app/Settings \
             --add-data LICENSE:.
           # 使用系统自带的 zip 工具将打包好的文件压缩成 ZIP 文件
           zip -r -q zip/SectionIstool-Ubuntu22.04.zip dist/SectionIstool/*
@@ -111,9 +111,9 @@ jobs:
             -i ./resources/SectionIstool_icon.icns \
             -n "SectionIstool" \
             --contents-directory . \
-            --add-data ./app/resource/icon:icon \
-            --add-data ./app/resource/README:README \
-            --add-data ./app/Settings:Settings \
+            --add-data ./app/resource/icon:app/resource/icon \
+            --add-data ./app/resource/README:app/resource/README \
+            --add-data ./app/Settings:app/Settings \
             --add-data LICENSE:.
           # 使用系统自带的 zip 工具将打包好的文件压缩成 ZIP 文件
           zip -r -q "zip/SectionIstool-macOS-${{ matrix.arch }} (bundle).zip" dist/SectionIstool.app/*
@@ -176,9 +176,9 @@ jobs:
             -w \
             -n SectionIstool \
             --contents-directory . \
-            --add-data ./app/resource/icon:icon \
-            --add-data ./app/resource/README:README \
-            --add-data ./app/Settings:Settings \
+            --add-data ./app/resource/icon:app/resource/icon \
+            --add-data ./app/resource/README:app/resource/README \
+            --add-data ./app/Settings:app/Settings \
             --add-data LICENSE:.
           zip -r -q zip/SectionIstool-Debian10.zip dist/SectionIstool/*
 
