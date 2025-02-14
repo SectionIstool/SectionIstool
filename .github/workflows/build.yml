@@ -103,8 +103,6 @@ jobs:
           source .venv/bin/activate
           # 安装依赖
           uv pip install -r requirements.txt
-          # 尝试升级 pyqt5-qt5 版本
-          uv pip install pyqt5-qt5==5.15.4 || uv pip install pyqt5
           # 安装 pyinstaller
           uv pip install pyinstaller
           # 使用 pyinstaller 打包应用程序
