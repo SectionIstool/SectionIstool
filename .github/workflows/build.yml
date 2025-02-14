@@ -193,9 +193,7 @@ jobs:
           path: ./zip
 
   release:
-    - name: 等待构建完成
-      needs: [debian, builder_matrix]
-      
+    needs: [debian, builder_matrix]
     - name: 发布
       uses: softprops/action-gh-release@v2
       with:
