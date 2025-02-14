@@ -59,14 +59,16 @@ jobs:
         id: release-type
         run: |
           if [[ "${{ github.ref }}" == *"beta"* || "${{ github.ref }}" == *"alpha"* ]]; then
-            echo "is_beta=true" >> $GITHUB_OUTPUT
+            echo "is_beta=true" >> $GITHUB_ENV
           else
-            echo "is_beta=false" >> $GITHUB_OUTPUT
+            echo "is_beta=false" >> $GITHUB_ENV
           fi
+
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          token: ${{ secrets.Releases_BOT }}
           files: release/*
           body_path: CHANGELOG.md
           draft: false
