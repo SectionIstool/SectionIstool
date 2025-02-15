@@ -65,7 +65,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 117770699,
-                "download_count": 21,
+                "download_count": 42,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T01:54:49Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-Debian10.zip"
@@ -100,7 +100,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 185429271,
-                "download_count": 24,
+                "download_count": 33,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T08:07:09Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-macOS-arm64-bundle.zip"
@@ -135,7 +135,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 92657749,
-                "download_count": 15,
+                "download_count": 20,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T08:07:09Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-macOS-arm64.zip"
@@ -170,7 +170,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 194023539,
-                "download_count": 7,
+                "download_count": 9,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T08:07:09Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-macOS-x64-bundle.zip"
@@ -205,7 +205,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 96723637,
-                "download_count": 10,
+                "download_count": 11,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T08:07:09Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-macOS-x64.zip"
@@ -240,7 +240,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 66046456,
-                "download_count": 219,
+                "download_count": 431,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T01:54:47Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-Windows-x64.zip"
@@ -275,7 +275,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 57930996,
-                "download_count": 27,
+                "download_count": 52,
                 "created_at": "2025-02-07T01:54:44Z",
                 "updated_at": "2025-02-07T01:54:46Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7.1/ClassWidgets-Windows-x86.zip"
@@ -363,7 +363,7 @@
                 "content_type": "application/zip",
                 "state": "uploaded",
                 "size": 154321188,
-                "download_count": 758,
+                "download_count": 764,
                 "created_at": "2025-01-28T03:48:19Z",
                 "updated_at": "2025-01-28T03:57:24Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7/ClassWidgets_v1.1.7_win_x64.zip"
@@ -452,7 +452,7 @@
                 "content_type": "application/x-zip-compressed",
                 "state": "uploaded",
                 "size": 146424390,
-                "download_count": 327,
+                "download_count": 329,
                 "created_at": "2024-12-31T15:04:01Z",
                 "updated_at": "2024-12-31T15:07:49Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.7-b4/fixed.ClassWidgets_v1.1.7-b4_windows-x64.zip"
@@ -541,7 +541,7 @@
                 "content_type": "application/x-zip-compressed",
                 "state": "uploaded",
                 "size": 88876774,
-                "download_count": 1964,
+                "download_count": 1965,
                 "created_at": "2024-09-17T17:34:58Z",
                 "updated_at": "2024-09-17T17:35:32Z",
                 "browser_download_url": "https://github.com/Class-Widgets/Class-Widgets/releases/download/v1.1.6.5/v1.1.6.5_Class_Widgets.zip"

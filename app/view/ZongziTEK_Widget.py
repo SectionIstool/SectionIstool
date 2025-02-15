@@ -288,7 +288,7 @@ class ZongziTEK_Widget(QFrame):
                         if assets:  # 检查 assets 列表是否为空
                             version_names = [asset.get('name', 'Unknown') for asset in assets] # type: ignore
                             version_name_combo_box.addItems(version_names) # type: ignore
-                            modify_setting('./app/Settings/Settings.json', software_name_download_second, 'download_version_name', f'{version_names}') # type: ignore
+                            modify_setting('./app/Settings/Settings.json', software_name_download_second, 'download_version_name', f'{version_name_combo_box.currentText()}') # type: ignore
                             logger.info(f'当前选择的版本为 {tag_name_current}, 自动选择 {version_names} 版本')
                             break
                         else:

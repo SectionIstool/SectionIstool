@@ -60,7 +60,7 @@ def write_json(json_path, field_name, default_value):  # type: ignore
 # 写入默认数据
 write_json('./app/Settings/Settings.json', 'software_author', 'lzy98276')
 write_json('./app/Settings/Settings.json', 'software_name', 'SectionIstool')
-write_json('./app/Settings/Settings.json', 'version', '1.3.1.0')
+write_json('./app/Settings/Settings.json', 'version', '1.3.1.3-beta')
 write_json('./app/Settings/Settings.json', 'Start_detection', 'True')
 
 # 导入子页面

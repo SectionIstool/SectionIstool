@@ -1,79 +1,79 @@
 {
     "software_author": "lzy98276",
     "software_name": "SectionIstool",
-    "version": "1.3.1.0",
+    "version": "1.3.1.3-beta",
     "Start_detection": "True",
     "SectionIstool": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
-        "download_version": "1.3.0.0",
-        "download_version_name": "['SectionIstool.zip']"
+        "download_version": "1.3.1.2-beta",
+        "download_version_name": "SectionIstool-Debian10.zip"
     },
     "ClassIsland": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
-        "download_version": "1.6.0.0",
-        "download_version_name": "['ClassIsland.zip', 'ClassIsland_app_windows_x64_full_singleFile.zip', 'ClassIsland_app_windows_x64_trimmed_singleFile.zip', 'ClassIsland_AssetsTrimmed.zip']"
+        "download_version": "1.5.0.2",
+        "download_version_name": "ClassIsland.zip"
     },
     "Class-Widgets": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
-        "download_version": "v1.1.7.1",
-        "download_version_name": "['ClassWidgets-Debian10.zip', 'ClassWidgets-macOS-arm64-bundle.zip', 'ClassWidgets-macOS-arm64.zip', 'ClassWidgets-macOS-x64-bundle.zip', 'ClassWidgets-macOS-x64.zip', 'ClassWidgets-Windows-x64.zip', 'ClassWidgets-Windows-x86.zip']"
+        "download_version": "v1.1.5.5",
+        "download_version_name": "v1.1.5.5_Class_Widgets.zip"
     },
     "ZongziTEK-Blackboard-Sticker": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "v3.2.8",
-        "download_version_name": "['ZongziTEK_Blackboard_Sticker.zip']"
+        "download_version_name": "ZongziTEK_Blackboard_Sticker.zip"
     },
     "ElectronClassSchedule": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "latest",
-        "download_version_name": "['Win10_Win11_ElectronClassSchedule.zip', 'Win7_Win8_ElectronClassSchedule.zip']"
+        "download_version_name": "Win10_Win11_ElectronClassSchedule.zip"
     },
     "Sticky-attention": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "1.1.7.7",
-        "download_version_name": "['Sticky-attention.exe']"
+        "download_version_name": "Sticky-attention.exe"
     },
     "dsz-exam-showboard": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "v1.2.5",
-        "download_version_name": "['examshowboard-1.2.5-setup.exe', 'examshowboard-1.2.5.dmg']"
+        "download_version_name": "examshowboard-1.2.5-setup.exe"
     },
     "Inkeys": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "20250209a",
-        "download_version_name": "['Inkeys20250209a-32.zip', 'Inkeys20250209a-64.zip', 'Inkeys20250209a-Arm64.zip']"
+        "download_version_name": "Inkeys20250209a-32.zip"
     },
     "Ink-Canvas": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "v4.0.0",
-        "download_version_name": "['Ink.Canvas.Setup.Ver.4.0.0-release.exe', 'Ink.Canvas.Ver.4.0.0-release.Arm64.zip', 'Ink.Canvas.Ver.4.0.0-release.x64.zip', 'Ink.Canvas.Ver.4.0.0-release.zip', 'Ink_Canvas_4.0.0.0_neutral.AppxBundle']"
+        "download_version_name": "Ink.Canvas.Setup.Ver.4.0.0-release.exe"
     },
     "Ris_ClassTool": {
         "source": "github",
         "download": "[软件根目录/Downloads]",
         "download_manner": "异步下载(aiohttp)",
         "download_version": "0.3.9",
-        "download_version_name": "['Ris_ClassTool.Setup.0.3.9.exe']"
+        "download_version_name": "Ris_ClassTool.Setup.0.3.9.exe"
     },
     "Update": {
-        "version": "1.3.1.0"
+        "version": "1.3.1.3-beta"
     }
 }

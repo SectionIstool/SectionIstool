@@ -65,7 +65,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 46100439,
-                "download_count": 34,
+                "download_count": 216,
                 "created_at": "2025-02-12T05:38:08Z",
                 "updated_at": "2025-02-12T05:38:09Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.6.0.0/ClassIsland.zip"
@@ -100,7 +100,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 46100439,
-                "download_count": 18,
+                "download_count": 66,
                 "created_at": "2025-02-12T05:38:07Z",
                 "updated_at": "2025-02-12T05:38:08Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.6.0.0/ClassIsland_app_windows_x64_full_singleFile.zip"
@@ -135,7 +135,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 23634695,
-                "download_count": 1,
+                "download_count": 11,
                 "created_at": "2025-02-12T05:38:05Z",
                 "updated_at": "2025-02-12T05:38:06Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.6.0.0/ClassIsland_app_windows_x64_trimmed_singleFile.zip"
@@ -170,7 +170,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 23634695,
-                "download_count": 1,
+                "download_count": 12,
                 "created_at": "2025-02-12T05:38:04Z",
                 "updated_at": "2025-02-12T05:38:05Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.6.0.0/ClassIsland_AssetsTrimmed.zip"
@@ -259,7 +259,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 46073266,
-                "download_count": 163,
+                "download_count": 175,
                 "created_at": "2025-02-07T15:19:33Z",
                 "updated_at": "2025-02-07T15:19:35Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.4.1/ClassIsland.zip"
@@ -294,7 +294,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 46073266,
-                "download_count": 39,
+                "download_count": 45,
                 "created_at": "2025-02-07T15:19:32Z",
                 "updated_at": "2025-02-07T15:19:33Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.4.1/ClassIsland_app_windows_x64_full_singleFile.zip"
@@ -329,7 +329,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 23597706,
-                "download_count": 5,
+                "download_count": 6,
                 "created_at": "2025-02-07T15:19:31Z",
                 "updated_at": "2025-02-07T15:19:32Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.4.1/ClassIsland_app_windows_x64_trimmed_singleFile.zip"
@@ -634,7 +634,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 45985850,
-                "download_count": 343,
+                "download_count": 344,
                 "created_at": "2025-01-23T02:44:57Z",
                 "updated_at": "2025-01-23T02:44:58Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.3.1/ClassIsland.zip"
@@ -1369,7 +1369,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 40551117,
-                "download_count": 6136,
+                "download_count": 6384,
                 "created_at": "2024-11-09T10:01:25Z",
                 "updated_at": "2024-11-09T10:01:27Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.0.4/ClassIsland.zip"
@@ -1404,7 +1404,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 18671178,
-                "download_count": 382,
+                "download_count": 403,
                 "created_at": "2024-11-09T10:01:28Z",
                 "updated_at": "2024-11-09T10:01:29Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.0.4/ClassIsland_AssetsTrimmed.zip"
@@ -1976,7 +1976,7 @@
                 "content_type": "raw",
                 "state": "uploaded",
                 "size": 40519328,
-                "download_count": 2365,
+                "download_count": 2366,
                 "created_at": "2024-09-08T04:09:37Z",
                 "updated_at": "2024-09-08T04:09:39Z",
                 "browser_download_url": "https://github.com/ClassIsland/ClassIsland/releases/download/1.5.0.0/ClassIsland.zip"
