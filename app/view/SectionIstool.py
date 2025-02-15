@@ -13,6 +13,10 @@ from loguru import logger
 if ('./app/Settings') != None and not os.path.exists('./app/Settings'): # type: ignore
     os.makedirs('./app/Settings')
 
+# 确认是否存在软件链接目录
+if ('./app/resource/releases') != None and not os.path.exists('./app/resource/releases'): # type: ignore
+    os.makedirs('./app/resource/releases')
+
 # 配置日志记录
 log_dir = "logs"
 if not os.path.exists(log_dir):
@@ -80,6 +84,8 @@ class Window(FluentWindow):
     def __init__(self):
         super().__init__() # type: ignore
         self.resize(1200, 800)
+        # 设置最小尺寸
+        self.setMinimumSize(600, 400)
         self.setWindowTitle('SectionIstool')
         self.setWindowIcon(QIcon('./app/resource/icon/SectionIstool_icon.png'))
         # 获取主屏幕

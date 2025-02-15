@@ -1,7 +1,8 @@
 from qfluentwidgets import * # type: ignore
 from qfluentwidgets import FluentIcon as FIF  # type: ignore
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QFrame, QScrollArea, QVBoxLayout, QWidget
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QFrame, QScrollArea, QVBoxLayout, QWidget, QScroller
 from loguru import logger
 import os
 import asyncio
@@ -11,6 +12,7 @@ import subprocess
 
 from ..common.config import cfg, AUTHOR, VERSION, YEAR, isWin11 # type: ignore
 from ..common.signal_bus import signalBus
+from ..common.config import load_custom_font
 
 class setting_Widget(QFrame):
     def __init__(self, parent: QFrame = None): # type: ignore
@@ -19,30 +21,130 @@ class setting_Widget(QFrame):
         # 创建一个 QScrollArea
         scroll_area_personal = QScrollArea(self)
         scroll_area_personal.setWidgetResizable(True)
-        # 设置 QScrollArea 的样式
+        # 设置滚动条样式
         scroll_area_personal.setStyleSheet("""
             QScrollArea {
                 border: none;
                 background-color: transparent;
             }
             QScrollArea QWidget {
+                border: none;
                 background-color: transparent;
             }
+            /* 垂直滚动条整体 */
+            QScrollBar:vertical {
+                background-color: #E5DDF8;   /* 背景透明 */
+                width: 8px;                    /* 宽度 */
+                margin: 0px;                   /* 外边距 */
+            }
+            /* 垂直滚动条的滑块 */
+            QScrollBar::handle:vertical {
+                background-color: rgba(0, 0, 0, 0.3);    /* 半透明滑块 */
+                border-radius: 4px;                      /* 圆角 */
+                min-height: 20px;                        /* 最小高度 */
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:vertical:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的上下按钮和顶部、底部区域 */
+            QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical,
+            QScrollBar::up-arrow:vertical,
+            QScrollBar::down-arrow:vertical {
+                height: 0px;
+            }
+        
+            /* 水平滚动条整体 */
+            QScrollBar:horizontal {
+                background-color: #E5DDF8;   /* 背景透明 */
+                height: 8px;
+                margin: 0px;
+            }
+            /* 水平滚动条的滑块 */
+            QScrollBar::handle:horizontal {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                min-width: 20px;
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:horizontal:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的左右按钮和左侧、右侧区域 */
+            QScrollBar::add-line:horizontal,
+            QScrollBar::sub-line:horizontal,
+            QScrollBar::left-arrow:horizontal,
+            QScrollBar::right-arrow:horizontal {
+                width: 0px;
+            }
         """)
+        # 启用触屏滚动
+        QScroller.grabGesture(scroll_area_personal.viewport(), QScroller.LeftMouseButtonGesture) # type: ignore
 
         # 创建一个 QScrollArea
         scroll_area_about = QScrollArea(self)   
         scroll_area_about.setWidgetResizable(True)
-        # 设置 QScrollArea 的样式
+        # 设置滚动条样式
         scroll_area_about.setStyleSheet("""
             QScrollArea {
                 border: none;
                 background-color: transparent;
             }
             QScrollArea QWidget {
+                border: none;
                 background-color: transparent;
             }
+            /* 垂直滚动条整体 */
+            QScrollBar:vertical {
+                background-color: #E5DDF8;   /* 背景透明 */
+                width: 8px;                    /* 宽度 */
+                margin: 0px;                   /* 外边距 */
+            }
+            /* 垂直滚动条的滑块 */
+            QScrollBar::handle:vertical {
+                background-color: rgba(0, 0, 0, 0.3);    /* 半透明滑块 */
+                border-radius: 4px;                      /* 圆角 */
+                min-height: 20px;                        /* 最小高度 */
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:vertical:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的上下按钮和顶部、底部区域 */
+            QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical,
+            QScrollBar::up-arrow:vertical,
+            QScrollBar::down-arrow:vertical {
+                height: 0px;
+            }
+        
+            /* 水平滚动条整体 */
+            QScrollBar:horizontal {
+                background-color: #E5DDF8;   /* 背景透明 */
+                height: 8px;
+                margin: 0px;
+            }
+            /* 水平滚动条的滑块 */
+            QScrollBar::handle:horizontal {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                min-width: 20px;
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:horizontal:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的左右按钮和左侧、右侧区域 */
+            QScrollBar::add-line:horizontal,
+            QScrollBar::sub-line:horizontal,
+            QScrollBar::left-arrow:horizontal,
+            QScrollBar::right-arrow:horizontal {
+                width: 0px;
+            }
         """)
+        # 启用触屏滚动
+        QScroller.grabGesture(scroll_area_about.viewport(), QScroller.LeftMouseButtonGesture) # type: ignore
 
         # 创建一个内部的 QFrame 用于放置内容
         inner_frame_personal = QWidget(scroll_area_personal)
@@ -54,17 +156,21 @@ class setting_Widget(QFrame):
         inner_layout_about = QVBoxLayout(inner_frame_about)
         inner_layout_about.setAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignTop) # type: ignore
 
+        # 创建标签并设置自定义字体
         settingLabel = SubtitleLabel("设置")
         settingLabel.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop) # type: ignore
         settingLabel.setWordWrap(True)
+        settingLabel.setFont(QFont(load_custom_font(), 22))  # 设置自定义字体 # type: ignore
 
         personalLabel = SubtitleLabel("    个性化")
         personalLabel.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop) # type: ignore
         personalLabel.setWordWrap(True)
+        personalLabel.setFont(QFont(load_custom_font(), 18))  # 设置自定义字体 # type: ignore
 
         aboutLabel = SubtitleLabel("    关于")
         aboutLabel.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop) # type: ignore
         aboutLabel.setWordWrap(True)
+        aboutLabel.setFont(QFont(load_custom_font(), 18))  # 设置自定义字体 # type: ignore
 
         self.themeCard = OptionsSettingCard(
             cfg.themeMode,
@@ -98,7 +204,7 @@ class setting_Widget(QFrame):
             cfg.updatesource,
             FIF.GLOBE,
             self.tr("更新镜像源"),
-            texts=['github', 'github(ghproxy)-已被墙', 'github(ghp)-已被墙', 'github(ghgo)-已被墙', 'github(ghfast)']
+            texts=['github', 'github(ghproxy)-已被墙', 'github(ghp)-已被墙', 'github(ghgo)-已被墙', 'github(ghfast)', 'github(gh-proxy)']
         )
         self.updateOnStartUpCard = SwitchSettingCard(
             FIF.UPDATE,
@@ -346,6 +452,8 @@ class setting_Widget(QFrame):
                 download_url = url_update # type: ignore
             elif source_combo_box_value == 'github(ghfast)':
                 download_url = f"https://ghfast.top/{url_update}" # type: ignore
+            elif source_combo_box_value == 'github(gh-proxy)':
+                download_url = f"https://gh-proxy.com/{url_update}" # type: ignore
             else:
                 download_url = url_update # type: ignore
         else:

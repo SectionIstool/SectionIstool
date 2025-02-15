@@ -3,11 +3,9 @@ import json
 import socket
 from concurrent.futures import ThreadPoolExecutor
 from qfluentwidgets import * # type: ignore
-from PyQt5.QtWidgets import QLabel, QFrame, QVBoxLayout, QSpacerItem, QSizePolicy, QHBoxLayout, QScrollArea
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QLabel, QFrame, QVBoxLayout, QSpacerItem, QSizePolicy, QHBoxLayout, QScrollArea, QScroller
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QPixmap, QDesktopServices, QFont
 import urllib.request
 import requests
 import aiohttp
@@ -15,6 +13,8 @@ import asyncio
 from loguru import logger
 
 from app.view.readme_current import show_readme_dialog # type: ignore
+from ..common.config import load_custom_font
+
 
 socket.setdefaulttimeout(None)
 
@@ -126,17 +126,67 @@ class Class_Widgets_Widget(QFrame):
         # 创建一个 QScrollArea
         scroll_area = QScrollArea(self)
         scroll_area.setWidgetResizable(True)
-
-        # 设置 QScrollArea 的样式
+        # 设置滚动条样式
         scroll_area.setStyleSheet("""
             QScrollArea {
                 border: none;
                 background-color: transparent;
             }
             QScrollArea QWidget {
+                border: none;
                 background-color: transparent;
             }
+            /* 垂直滚动条整体 */
+            QScrollBar:vertical {
+                background-color: #E5DDF8;   /* 背景透明 */
+                width: 8px;                    /* 宽度 */
+                margin: 0px;                   /* 外边距 */
+            }
+            /* 垂直滚动条的滑块 */
+            QScrollBar::handle:vertical {
+                background-color: rgba(0, 0, 0, 0.3);    /* 半透明滑块 */
+                border-radius: 4px;                      /* 圆角 */
+                min-height: 20px;                        /* 最小高度 */
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:vertical:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的上下按钮和顶部、底部区域 */
+            QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical,
+            QScrollBar::up-arrow:vertical,
+            QScrollBar::down-arrow:vertical {
+                height: 0px;
+            }
+        
+            /* 水平滚动条整体 */
+            QScrollBar:horizontal {
+                background-color: #E5DDF8;   /* 背景透明 */
+                height: 8px;
+                margin: 0px;
+            }
+            /* 水平滚动条的滑块 */
+            QScrollBar::handle:horizontal {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                min-width: 20px;
+            }
+            /* 鼠标悬停在滑块上 */
+            QScrollBar::handle:horizontal:hover {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            /* 滚动条的左右按钮和左侧、右侧区域 */
+            QScrollBar::add-line:horizontal,
+            QScrollBar::sub-line:horizontal,
+            QScrollBar::left-arrow:horizontal,
+            QScrollBar::right-arrow:horizontal {
+                width: 0px;
+            }
         """)
+        # 启用触屏滚动
+        QScroller.grabGesture(scroll_area.viewport(), QScroller.LeftMouseButtonGesture) # type: ignore
+
         # 创建一个内部的 QFrame 用于放置内容
         inner_frame = QFrame(scroll_area)
         inner_layout = QVBoxLayout(inner_frame)
@@ -152,11 +202,13 @@ class Class_Widgets_Widget(QFrame):
         author_label = SubtitleLabel(f"作者\n{software_author}", inner_frame)
         author_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         author_label.setWordWrap(True)
+        author_label.setFont(QFont(load_custom_font(), 18))  # 使用自定义字体
 
         # 创建软件介绍文本
         description_label = SubtitleLabel(f"{software_info}", inner_frame)
         description_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         description_label.setWordWrap(True)
+        description_label.setFont(QFont(load_custom_font(), 18))  # 使用自定义字体
 
         # 创建打开Github项目主页按钮
         GitHub_project_button = PushButton("Github 项目主页", inner_frame)
@@ -165,6 +217,7 @@ class Class_Widgets_Widget(QFrame):
         GitHub_project_button.setToolTip(f'点击即可打开 Github 上的 {software_name_download_second} 项目主页 ✨')
         GitHub_project_button.setToolTipDuration(2000)
         GitHub_project_button.installEventFilter(ToolTipFilter(GitHub_project_button, showDelay=300, position=ToolTipPosition.TOP))
+        GitHub_project_button.setFont(QFont(load_custom_font(), 14))  # 使用自定义字体
         # 定义项目主页的 URL
         project_url = QUrl(f"{software_github}")
         # 连接按钮的 clicked 信号到打开 URL 的槽函数
@@ -178,6 +231,7 @@ class Class_Widgets_Widget(QFrame):
         author_Bilibili_button.setToolTip('点击即可打开作者的 Bilibili 主页 ✨')
         author_Bilibili_button.setToolTipDuration(1500)
         author_Bilibili_button.installEventFilter(ToolTipFilter(author_Bilibili_button, showDelay=300, position=ToolTipPosition.TOP))
+        author_Bilibili_button.setFont(QFont(load_custom_font(), 14))  # 使用自定义字体 
         # 定义作者 Bilibili 主页的 URL
         author_Bilibili_url = QUrl(f"{software_bilibili}") 
         # 连接按钮的 clicked 信号到打开 URL 的槽函数
@@ -190,7 +244,7 @@ class Class_Widgets_Widget(QFrame):
         # 创建下载源选择下拉框
         source_combo_box = ComboBox(inner_frame)
         source_combo_box.setPlaceholderText("选择一个下载源")
-        items_source_combo_box = ['github', 'github(ghproxy)-已被墙', 'github(ghp)-已被墙', 'github(ghgo)-已被墙', 'github(ghfast)']
+        items_source_combo_box = ['github', 'github(ghproxy)-已被墙', 'github(ghp)-已被墙', 'github(ghgo)-已被墙', 'github(ghfast)', 'github(gh-proxy)']
         source_combo_box.addItems(items_source_combo_box)
         source_combo_box.currentIndexChanged.connect(lambda index: modify_setting('./app/Settings/Settings.json', software_name_download_second, 'source', f'{source_combo_box.currentText()}')) # type: ignore
         source_combo_box.setMaximumWidth(350) 
@@ -198,6 +252,7 @@ class Class_Widgets_Widget(QFrame):
         source_combo_box.setToolTip('选择一个下载源 ✨')
         source_combo_box.setToolTipDuration(1500)
         source_combo_box.installEventFilter(ToolTipFilter(source_combo_box, showDelay=300, position=ToolTipPosition.TOP))
+        source_combo_box.setFont(QFont(load_custom_font(), 14))
 
         def version_combo_box_update(version_data): # type: ignore
             # 清空现有的选项
@@ -220,6 +275,7 @@ class Class_Widgets_Widget(QFrame):
         version_combo_box.setToolTip('选择一个你需要下载的版本 ✨')
         version_combo_box.setToolTipDuration(1500)
         version_combo_box.installEventFilter(ToolTipFilter(version_combo_box, showDelay=300, position=ToolTipPosition.TOP))
+        version_combo_box.setFont(QFont(load_custom_font(), 14))
 
         def version_name_combo_box_update(version_name_data): # type: ignore
             # 清空现有的选项
@@ -253,6 +309,7 @@ class Class_Widgets_Widget(QFrame):
         version_name_combo_box.setToolTip('选择一个你需要下载的版本 ✨')
         version_name_combo_box.setToolTipDuration(1500)
         version_name_combo_box.installEventFilter(ToolTipFilter(version_name_combo_box, showDelay=300, position=ToolTipPosition.TOP))
+        version_name_combo_box.setFont(QFont(load_custom_font(), 14))
 
         # 创建下载目录选择下拉框
         download_combo_box = ComboBox(inner_frame)
@@ -265,6 +322,7 @@ class Class_Widgets_Widget(QFrame):
         download_combo_box.setToolTip('选择一个当前软件的下载目录 ✨')
         download_combo_box.setToolTipDuration(2000)
         download_combo_box.installEventFilter(ToolTipFilter(download_combo_box, showDelay=300, position=ToolTipPosition.TOP))
+        download_combo_box.setFont(QFont(load_custom_font(), 14))
 
         # 创建下载方式选择下拉框
         download_manner_combo_box = ComboBox(inner_frame)
@@ -277,8 +335,9 @@ class Class_Widgets_Widget(QFrame):
         download_manner_combo_box.setToolTip('选择一个下载方式 ✨')
         download_manner_combo_box.setToolTipDuration(1500)
         download_manner_combo_box.installEventFilter(ToolTipFilter(download_manner_combo_box, showDelay=300, position=ToolTipPosition.TOP))
+        download_manner_combo_box.setFont(QFont(load_custom_font(), 14))
 
-        # 创建下载按钮
+        # 创建查看当前选择版本的更新日志按钮
         self.readme_button = PushButton("查看当前选择版本的更新日志", inner_frame)
         self.readme_button.setObjectName("downloadButton")
         self.readme_button.setMinimumWidth(150)
@@ -288,6 +347,7 @@ class Class_Widgets_Widget(QFrame):
         self.readme_button.installEventFilter(ToolTipFilter(self.readme_button, showDelay=300, position=ToolTipPosition.TOP))
         # 连接按钮的 clicked 信号到下载函数
         self.readme_button.clicked.connect(lambda index: show_readme_dialog(self, self.readme_button, software_name_download_second)) # type: ignore
+        self.readme_button.setFont(QFont(load_custom_font(), 14))  # 使用自定义字体
 
         # 创建下载按钮
         self.download_button = PushButton("下载当前选择版本", inner_frame)
@@ -300,6 +360,7 @@ class Class_Widgets_Widget(QFrame):
         # 连接按钮的 clicked 信号到下载函数
         self.download_button.clicked.connect(self.showTeachingTip_download_latest_version) # type: ignore
         self.download_button.clicked.connect(lambda index: self.download_latest_version(read_setting('./app/Settings/Settings.json', software_name_download_second, 'download_version_name'))) # type: ignore
+        self.download_button.setFont(QFont(load_custom_font(), 14))  # 使用自定义字体
 
         def refresh_latest_version():
             # 读取配置文件中的下载源
@@ -332,7 +393,8 @@ class Class_Widgets_Widget(QFrame):
         # 连接按钮的 clicked 信号到刷新函数
         self.refresh_button.clicked.connect(self.showTeachingTip_refresh_latest_version) # type: ignore
         self.refresh_button.clicked.connect(refresh_latest_version) # type: ignore
-
+        self.refresh_button.setFont(QFont(load_custom_font(), 14))
+        
         # 创建打开下载文件夹按钮
         self.open_download_folder_button = PushButton("打开下载文件夹", inner_frame)
         self.open_download_folder_button.setObjectName("openDownloadFolderButton")
@@ -343,6 +405,7 @@ class Class_Widgets_Widget(QFrame):
         self.open_download_folder_button.installEventFilter(ToolTipFilter(self.open_download_folder_button, showDelay=300, position=ToolTipPosition.TOP))
         # 连接按钮的 clicked 信号到打开下载文件夹函数
         self.open_download_folder_button.clicked.connect(self.open_download_folder) # type: ignore
+        self.open_download_folder_button.setFont(QFont(load_custom_font(), 14))
 
         # 创建标签以显示图片
         image_label = QLabel(inner_frame)
@@ -573,6 +636,8 @@ class Class_Widgets_Widget(QFrame):
                 download_url = f"https://github.com/{software_name_download_first}/{software_name_download_second}/releases/download/{release_name}/{version_name_names}"
             elif source_combo_box_value == 'github(ghfast)':
                 download_url = f"https://ghfast.top/https://github.com/{software_name_download_first}/{software_name_download_second}/releases/download/{release_name}/{version_name_names}"
+            elif source_combo_box_value == 'github(gh-proxy)':
+                download_url = f"https://gh-proxy.com/https://github.com/{software_name_download_first}/{software_name_download_second}/releases/download/{release_name}/{version_name_names}"
             else:
                 download_url = f"https://github.com/{software_name_download_first}/{software_name_download_second}/releases/download/{release_name}/{version_name_names}"
         else:

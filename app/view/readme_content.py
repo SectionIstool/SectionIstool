@@ -2,7 +2,7 @@ import os
 import json
 from qfluentwidgets import * # type: ignore
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QFrame, QVBoxLayout, QTextBrowser
+from PyQt5.QtWidgets import QFrame, QVBoxLayout, QTextBrowser, QScroller
 from PyQt5.QtGui import QFont, QTextOption, QIcon, QDesktopServices, QKeyEvent, QCloseEvent
 from loguru import logger
 import markdown  # type: ignore
@@ -90,6 +90,8 @@ def show_readme_dialog(parent, software_name_download_second) -> None:  # type: 
         readme_window.setFixedSize(800, 600)
         # 设置窗口置顶
         readme_window.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
+        # 启用触屏滚动
+        QScroller.grabGesture(readme_window.viewport(), QScroller.LeftMouseButtonGesture) # type: ignore
 
         text_edit = CustomTextBrowser(readme_window)
         text_edit.setReadOnly(True)

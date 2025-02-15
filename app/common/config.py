@@ -1,7 +1,7 @@
-# coding:utf-8
 import sys
 import os
 from qfluentwidgets import *  # type: ignore
+from PyQt5.QtGui import QFontDatabase  # type: ignore
 
 # 读取配置文件
 def read_json(json_path): # type: ignore
@@ -65,6 +65,14 @@ def modify_setting_update_manner(json_path, software_name, key): # type: ignore
 def isWin11():
     return sys.platform == 'win32' and sys.getwindowsversion().build >= 22000
 
+def load_custom_font():
+    font_path = './app/resource/font/HarmonyOS_Sans_SC_Bold.ttf'
+    font_id = QFontDatabase.addApplicationFont(font_path)
+    if font_id < 0:
+        print("Failed to load font")
+        return None
+    font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
+    return font_family
 
 class Config(QConfig):
     # 主题模式
@@ -96,7 +104,6 @@ FEEDBACK_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets/issues"
 RELEASE_URL = "https://github.com/zhiyiYo/PyQt-Fluent-Widgets/releases/latest"
 ZH_SUPPORT_URL = "https://qfluentwidgets.com/zh/price/"
 EN_SUPPORT_URL = "https://qfluentwidgets.com/price/"
-
 
 cfg = Config()
 cfg.themeMode.value = Theme.AUTO
