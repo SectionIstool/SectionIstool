@@ -2,7 +2,7 @@
 
 <image src="resources/SectionIstool_icon.png" height="128"/>
 
-# SectionIstool (班捷通)
+# SectionIstool (Sec)
 
 [![Downloads](https://img.shields.io/github/downloads/SectionIstool/SectionIstool/total?style=social&label=Downloads&logo=github)](https://github.com/SectionIstool/SectionIstool/releases/latest)
 [![GitHub Issues](https://img.shields.io/github/issues-search/SectionIstool/SectionIstool?query=is%3Aopen&style=social-square&logo=github&label=Issues&color=%233fb950)](https://github.com/SectionIstool/SectionIstool/issues)
